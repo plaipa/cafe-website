@@ -20,20 +20,21 @@
 
 /* ───────────── Tokens ───────────── */
 :root {
-  /* Code Concept: monochrome like the brand — graphite, concrete grey, steel, white */
-  --bg: #0c0d0e;
-  --surface: #151719;
-  --line: rgba(236, 236, 234, 0.1);
-  --line-strong: rgba(236, 236, 234, 0.22);
+  /* Code Concept: light and monochrome like the brand's photography —
+     concrete-grey paper, black ink, steel greys */
+  --bg: #e8e7e4;
+  --surface: #f2f1ef;
+  --line: rgba(20, 20, 20, 0.12);
+  --line-strong: rgba(20, 20, 20, 0.26);
 
-  --ink: #ececea;
-  --ink-2: #a9abab;
-  --muted: #77797a;
+  --ink: #141414;
+  --ink-2: #4a4a49;
+  --muted: #767573;
 
-  --accent: #b9bcbe;
-  --accent-hi: #ffffff;
-  --ember: #ffffff;
-  --sleep: #7d8188;
+  --accent: #6f6e6c;
+  --accent-hi: #141414;
+  --ember: #141414;
+  --sleep: #5f6b78;
 
   --font: 'Estedad', 'Manrope', system-ui, -apple-system, 'Segoe UI', Tahoma, sans-serif;
   --display-lh: 1.32;
@@ -44,7 +45,7 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
 
-  color-scheme: dark;
+  color-scheme: light;
 }
 /* Latin display type can sit tighter; Persian needs room for its tall letters and dots,
    and must never be letter-spaced (it breaks the joins between letters). */
@@ -291,7 +292,7 @@ button {
   border-bottom: 1px solid transparent;
 }
 .site-header.is-scrolled {
-  background: rgba(12, 13, 14, 0.7);
+  background: rgba(232, 231, 228, 0.7);
   backdrop-filter: blur(14px);
   border-bottom-color: var(--line);
 }
@@ -579,7 +580,7 @@ button {
   padding: 0.8rem 0.8rem 0.8rem 1.2rem;
   border-radius: 999px;
   border: 1px solid var(--line-strong);
-  background: rgba(21, 23, 25, 0.88);
+  background: rgba(242, 241, 239, 0.88);
   backdrop-filter: blur(14px);
   font-size: 0.9rem;
   line-height: 1.4;

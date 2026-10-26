@@ -17,8 +17,9 @@ export function pickQuality() {
 }
 
 /**
- * Mount a centered scene into `host` (an element containing a <canvas>).
- * Renders only while visible; follows the pointer. Resolves to the story API, or null without WebGL.
+ * Mount an inner-page vignette ('cup' | 'still' | 'molecules') into `host`
+ * (an element containing a <canvas>). Renders only while visible; follows the pointer.
+ * Resolves to the scene, or null without WebGL.
  */
 export async function mountScene(host, preset) {
   const canvas = host?.querySelector('canvas');
@@ -26,28 +27,21 @@ export async function mountScene(host, preset) {
     host?.classList.add('is-static');
     return null;
   }
-  // the intro loader waits for the scene code to arrive
-  const { createStory } = await hold(import('./story.js'));
-  const quality = new URLSearchParams(location.search).get('q') || pickQuality();
-  const story = createStory({
-    canvas,
-    quality,
-    mirror: document.documentElement.dir === 'ltr',
-    framing: 'center',
-    preset,
-  });
-  story.renderStill();
-  story.reveal();
+  // the intro loader waits for the scene and its assets
+  const scene = await hold(
+    import('./scenes.js').then(({ createVignette }) => createVignette({ canvas, quality: pickQuality(), preset }))
+  );
+  scene.renderStill();
   host.classList.add('is-ready');
 
-  new IntersectionObserver(([e]) => (e.isIntersecting ? story.start() : story.stop()), { rootMargin: '100px' }).observe(host);
-  document.addEventListener('visibilitychange', () => document.hidden && story.stop());
+  new IntersectionObserver(([e]) => (e.isIntersecting ? scene.start() : scene.stop()), { rootMargin: '100px' }).observe(host);
+  document.addEventListener('visibilitychange', () => document.hidden && scene.stop());
   if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     addEventListener(
       'pointermove',
-      (e) => story.setPointer((e.clientX / innerWidth) * 2 - 1, -((e.clientY / innerHeight) * 2 - 1)),
+      (e) => scene.setPointer((e.clientX / innerWidth) * 2 - 1, -((e.clientY / innerHeight) * 2 - 1)),
       { passive: true }
     );
   }
-  return story;
+  return scene;
 }

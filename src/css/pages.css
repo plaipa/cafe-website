@@ -4,7 +4,7 @@
   top: var(--header-h);
   z-index: 5;
   padding-block: 1rem;
-  background: rgba(12, 13, 14, 0.82);
+  background: rgba(232, 231, 228, 0.82);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--line);
 }
