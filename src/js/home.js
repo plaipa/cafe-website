@@ -2,6 +2,7 @@ import './main.js';
 import '../css/home.css';
 import { HEAD_BRAIN } from './scene/shapes.js';
 import { canWebGL, pickQuality } from './scene/mount.js';
+import { hold, ready } from './loader.js';
 
 const root = document.documentElement;
 const journey = document.getElementById('journey');
@@ -60,6 +61,11 @@ function syncUI(p) {
   hint.classList.toggle('is-hidden', p > 0.02);
 }
 
+// the copy follows the scroll on its own, even before (or without) the 3D scene
+const syncNow = () => syncUI(journeyProgress());
+syncNow();
+addEventListener('scroll', syncNow, { passive: true });
+
 function start() {
   const quality = params.get('q') || pickQuality();
 
@@ -93,7 +99,8 @@ function start() {
         rootMargin: '200px 0px',
       });
       io.observe(journey);
-      story.reveal();
+      // particles gather once the intro loader has lifted
+      ready.then(() => story.reveal());
       document.addEventListener('visibilitychange', () => (document.hidden ? story.stop() : tick()));
 
       // DOM tags track their 3D anchor points
@@ -116,7 +123,7 @@ function start() {
 if (!canWebGL()) {
   root.classList.add('no-webgl');
 } else {
-  start().catch((err) => {
+  hold(start()).catch((err) => {
     console.error('3D story failed, falling back to static layout', err);
     root.classList.add('no-webgl');
   });

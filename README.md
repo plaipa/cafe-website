@@ -1,8 +1,8 @@
-# کافه جان · Café Jaan
+# Code Concept
 
-وب‌سایت چندصفحه‌ای و دوزبانهٔ یک کافه در تبریز. نقطهٔ قوت سایت، سفرِ سه‌بعدیِ صفحهٔ اول دربارهٔ «قدرت قهوه در وجود انسان» است: دانهٔ قهوه ذره‌ذره می‌شود، به فنجان و بخار تبدیل می‌شود و بعد به سرِ یک انسان می‌رسد که شبکهٔ عصبی‌اش با کافئین روشن می‌شود.
+وب‌سایت چندصفحه‌ای و دوزبانهٔ کافه Code Concept در تبریز. نقطهٔ قوت سایت، سفرِ سه‌بعدیِ صفحهٔ اول دربارهٔ «قدرت قهوه در وجود انسان» است: دانهٔ قهوه ذره‌ذره می‌شود، به فنجان و بخار تبدیل می‌شود و بعد به سرِ یک انسان می‌رسد که شبکهٔ عصبی‌اش با کافئین روشن می‌شود.
 
-A minimal, bilingual (Persian default, English) multi-page site for a café in Tabriz, built around a scroll-driven 3D story about the power of coffee within a person.
+A minimal, bilingual (Persian default, English) multi-page site for Code Concept, a café in Tabriz, built around a scroll-driven 3D story about the power of coffee within a person. The palette follows the brand: monochrome graphite, concrete grey, steel and white.
 
 ## اجرا · Run
 
@@ -31,7 +31,8 @@ Every push to `main` builds the site and publishes it to GitHub Pages (`.github/
 - `partials/menu-data.js`: the menu, in both languages, in one place. It is rendered to static HTML at build time by `partials/render.js` (`<!--@render menu-->`).
 - `vite.config.js`: the small plugin that fills partials, marks the current nav link and links each page to its other-language twin.
 - `src/js/scene/`: the Three.js engine. `shapes.js` generates the bean, cup and head procedurally (no model files), `shaders.js` holds the GLSL, `story.js` drives the scene (scroll timeline or direct control) and mirrors it for English.
-- Fonts are self-hosted: **Estedad** for Persian, **Manrope** for Latin, split by `unicode-range`.
+- `src/js/loader.js`: intro loader whose cup fills with real loading progress (once per session). `src/js/parallax.js`: scroll and pointer parallax (`data-parallax`, `data-depth`).
+- Fonts are self-hosted: **Estedad** for Persian, **Manrope** for Latin (also the "code / concept" text wordmark), split by `unicode-range`.
 
 ## زبان · Language
 
@@ -42,10 +43,11 @@ Every push to `main` builds the site and publishes it to GitHub Pages (`.github/
 
 These are **placeholders**, not real data:
 
-- Café name "کافه جان / Café Jaan", address (only "Valiasr St."), phone `041 3300 0000`, opening hours: in `partials/strings.js`, the home "visit" section and both `contact.html` pages.
-- Menu items and **prices**: `partials/menu-data.js`.
+- The header and footer use a **text wordmark** ("code / concept"); replace it with the official logo file when available (`partials/header.html`, `partials/footer.html`).
+- Address (only "Valiasr St."), phone `041 3300 0000`, opening hours: in `partials/strings.js`, the home "visit" section and both `contact.html` pages.
+- Menu items: `partials/menu-data.js` (no prices are shown anywhere).
 - The reservation form is **not connected to a backend**. It shows a summary and asks the guest to call. Connect it to a form service or API in `src/js/contact.js`.
-- Story copy on the About page (sourcing, roasting) describes an intended practice; adjust it to match the café.
+- About page copy (code / concept / community) is written from the café's name; replace it with the real story.
 
 Caffeine figures (≈30–60 min to peak, ≈5 h half-life, 400 mg/day FDA guidance for most healthy adults) are general public-health values; the chart is a simplified model and the page says so.
 

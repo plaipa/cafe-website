@@ -117,7 +117,7 @@
   border-inline-end: 0;
 }
 .card:hover {
-  background: rgba(240, 230, 216, 0.025);
+  background: rgba(236, 236, 234, 0.025);
 }
 .card__index {
   font-size: 0.8rem;

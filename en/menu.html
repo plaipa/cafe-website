@@ -2,20 +2,21 @@
 <html lang="en" dir="ltr">
   <head>
     <!--@include head-->
-    <title>Menu | Café Jaan, Tabriz</title>
-    <meta name="description" content="The Café Jaan menu: espresso, hand brews, cold drinks, Tabriz tea and local sweets, with a caffeine meter on every drink." />
+    <title>Menu | Code Concept, Tabriz</title>
+    <meta name="description" content="The Code Concept menu: espresso, hand brews, cold drinks, Tabriz tea and local sweets, with a caffeine meter on every drink." />
   </head>
   <body class="page-menu">
+    <!--@include loader-->
     <!--@include header-->
     <main id="main">
       <section class="page-hero">
         <div class="container page-hero__grid">
-          <div class="page-hero__copy">
+          <div class="page-hero__copy" data-parallax="0.1" data-depth="6">
             <p class="eyebrow" data-reveal>Menu</p>
             <h1 class="display h1" data-split>Every cup, <em>its own dose of energy.</em></h1>
             <p class="lead" data-reveal style="--d: 0.3s">Every drink carries a caffeine meter, so you know what you’re ordering, from a caffeine-free infusion to a full-strength cold brew.</p>
           </div>
-          <div class="hero-scene" data-scene="cup" aria-hidden="true"><canvas></canvas></div>
+          <div class="hero-scene" data-parallax="-0.05" data-scene="cup" aria-hidden="true"><canvas></canvas></div>
         </div>
         <span class="scroll-cue">See the menu</span>
       </section>
@@ -23,7 +24,7 @@
       <div class="menu-bar">
         <div class="container">
           <div class="chips" role="group" aria-label="Menu categories"><!--@render menuFilters--></div>
-          <span class="menu-bar__note">Prices in Toman · caffeine values are approximate</span>
+          <span class="menu-bar__note">Caffeine values are approximate</span>
         </div>
       </div>
 

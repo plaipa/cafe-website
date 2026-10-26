@@ -102,7 +102,7 @@ export function createStory({ canvas, quality = 'high', mirror = false, framing 
     powerPreference: 'high-performance',
     alpha: false,
   });
-  renderer.setClearColor(0x0b0806, 1);
+  renderer.setClearColor(0x0c0d0e, 1);
   const pixelRatio = Math.min(window.devicePixelRatio || 1, high ? 2 : 1.5);
   renderer.setPixelRatio(pixelRatio);
 
@@ -114,15 +114,15 @@ export function createStory({ canvas, quality = 'high', mirror = false, framing 
   scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
   scene.environmentIntensity = 0.16;
 
-  const key = new THREE.DirectionalLight(0xffd7a3, 3.4);
+  const key = new THREE.DirectionalLight(0xf4f2ee, 3.4);
   key.position.set(-3.5, 4, 5);
-  const rim = new THREE.PointLight(0xff7a3d, 70, 18, 2);
+  const rim = new THREE.PointLight(0xdfe3e8, 60, 18, 2); // cool steel rim, like the brand photography
   rim.position.set(4.5, -1.2, -2.5);
   scene.add(key, rim);
 
   /* — halo behind the subject — */
   const haloUniforms = {
-    uColor: { value: new THREE.Color(0xe6ab5c) },
+    uColor: { value: new THREE.Color(0x8c8e90) },
     uStrength: { value: 0.5 },
     uTime: { value: 0 },
   };
@@ -169,14 +169,14 @@ export function createStory({ canvas, quality = 'high', mirror = false, framing 
   }
   const bump = beanBumpTexture();
   const beanMat = new THREE.MeshPhysicalMaterial({
-    color: 0x4a2713,
+    color: 0x2e2420, // dark roast, close to black
     roughness: 0.46,
     metalness: 0.04,
     clearcoat: 0.55,
     clearcoatRoughness: 0.32,
     bumpMap: bump,
     bumpScale: 1.6,
-    emissive: 0x1d0b03,
+    emissive: 0x0b0908,
     side: THREE.DoubleSide,
   });
   patchBeanMaterial(beanMat, beanUniforms);
@@ -294,7 +294,7 @@ export function createStory({ canvas, quality = 'high', mirror = false, framing 
     new THREE.ShaderMaterial({
       vertexShader: dustVert,
       fragmentShader: dustFrag,
-      uniforms: { uTime: u.uTime, uPx: u.uPx, uBox: { value: box }, uColor: { value: new THREE.Color(0xf7cf8e) } },
+      uniforms: { uTime: u.uTime, uPx: u.uPx, uBox: { value: box }, uColor: { value: new THREE.Color(0xdedfe0) } },
       transparent: true,
       depthWrite: false,
       blending: THREE.AdditiveBlending,
@@ -347,9 +347,10 @@ export function createStory({ canvas, quality = 'high', mirror = false, framing 
   const tmpV = new THREE.Vector3();
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const haloGold = new THREE.Color(0xe6ab5c);
-  const haloSleep = new THREE.Color(0x4a66a8);
-  const haloAmber = new THREE.Color(0xe08a3c);
+  // Code Concept is monochrome: graphite halo → dim slate while tired → clean white light when awake
+  const haloGold = new THREE.Color(0x8c8e90);
+  const haloSleep = new THREE.Color(0x3a3d42);
+  const haloAmber = new THREE.Color(0xd8dadc);
 
   function targetLayout() {
     if (framing === 'center') return { x: 0, y: 0, s: 1 };

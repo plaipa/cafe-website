@@ -2,10 +2,11 @@
 <html lang="fa" dir="rtl">
   <head>
     <!--@include head-->
-    <title>کافه جان تبریز | قدرتِ قهوه در وجودِ تو</title>
-    <meta name="description" content="کافه جان، قهوهٔ تخصصی در تبریز. سفری سه‌بعدی از دانهٔ قهوه تا ذهنِ تو." />
+    <title>Code Concept تبریز | قدرتِ قهوه در وجودِ تو</title>
+    <meta name="description" content="Code Concept، قهوهٔ تخصصی در تبریز. سفری سه‌بعدی از دانهٔ قهوه تا ذهنِ تو." />
   </head>
   <body class="page-home">
+    <!--@include loader-->
     <!--@include header-->
 
     <main id="main">
@@ -14,9 +15,9 @@
           <canvas class="journey__canvas" id="scene" aria-hidden="true"></canvas>
           <div class="journey__veil" aria-hidden="true"></div>
 
-          <div class="journey__chapters">
+          <div class="journey__chapters" data-depth="-9">
             <article class="chapter chapter--intro is-active" data-start="0" data-end="0.1">
-              <p class="eyebrow">کافه جان · <b>تبریز</b></p>
+              <p class="eyebrow">Code Concept · <b>تبریز</b></p>
               <h1 class="chapter__title display">قدرتِ قهوه، <em>در وجودِ تو</em></h1>
               <p class="chapter__text">یک دانهٔ کوچک، یک جرقهٔ بزرگ. اسکرول کن و همراهِ قهوه از فنجان تا ذهنت سفر کن.</p>
               <div class="chapter__actions">
@@ -63,7 +64,7 @@
               <p class="chapter__text">قهوه جادو نیست؛ همراهی خوب است. باقی‌اش با خودِ توست: انرژی، تمرکز، و لحظه‌ای که برای خودت کنار می‌گذاری.</p>
               <div class="chapter__actions">
                 <a class="btn btn--solid" href="./menu.html">
-                  منوی کافه جان
+                  منوی Code Concept
                   <svg class="flip-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" /></svg>
                 </a>
                 <a class="link" href="./science.html">علمِ قهوه، با جزئیات</a>
@@ -93,8 +94,8 @@
       <section class="section" id="after">
         <div class="container intro-block">
           <p class="eyebrow" data-reveal>فلسفهٔ ما</p>
-          <p class="statement" data-split>در تبریز، چای و گفت‌وگو همیشه کنار هم بوده‌اند. ما قهوه را به همین سنت اضافه کرده‌ایم؛ <em>آرام، دقیق و بی‌عجله.</em></p>
-          <ul class="pillars">
+          <p class="statement" data-split data-parallax="0.05">در تبریز، چای و گفت‌وگو همیشه کنار هم بوده‌اند. ما قهوه را به همین سنت اضافه کرده‌ایم؛ <em>آرام، دقیق و بی‌عجله.</em></p>
+          <ul class="pillars" data-parallax="0.1">
             <li data-reveal><b>۰۱</b><h3>برشتهٔ تازه</h3><p>دانه‌ها در دسته‌های کوچک و نزدیک به زمانِ مصرف انتخاب می‌شوند.</p></li>
             <li data-reveal style="--d: 0.1s"><b>۰۲</b><h3>دمِ دقیق</h3><p>وزن، دما و زمان؛ هر فنجان با همین سه عدد تکرارپذیر است.</p></li>
             <li data-reveal style="--d: 0.2s"><b>۰۳</b><h3>نشستنِ بی‌عجله</h3><p>اینجا میز برای ماندن است، نه برای رد شدن.</p></li>
@@ -127,24 +128,24 @@
             <p class="lead" data-reveal>منحنیِ تعاملیِ ما نشان می‌دهد هر نوشیدنی چقدر در بدنت می‌ماند و تا وقتِ خواب چقدر از آن باقی است.</p>
             <a class="btn" href="./science.html" data-reveal>امتحانش کن</a>
           </div>
-          <svg class="teaser__curve" data-reveal viewBox="0 0 400 220" fill="none" aria-hidden="true">
+          <svg class="teaser__curve" data-reveal data-parallax="-0.08" viewBox="0 0 400 220" fill="none" aria-hidden="true">
             <defs>
               <linearGradient id="tc" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0" stop-color="#e8a259" stop-opacity=".22" />
-                <stop offset="1" stop-color="#e8a259" stop-opacity="0" />
+                <stop offset="0" stop-color="#b9bcbe" stop-opacity=".22" />
+                <stop offset="1" stop-color="#b9bcbe" stop-opacity="0" />
               </linearGradient>
             </defs>
-            <path d="M0 200.5H400" stroke="rgba(240,230,216,.18)" />
+            <path d="M0 200.5H400" stroke="rgba(236,236,234,.18)" />
             <path class="fill" d="M10 200 C 46 200 58 40 100 36 C 160 32 210 130 390 182 L390 200 L10 200Z" fill="url(#tc)" />
-            <path class="line" d="M10 200 C 46 200 58 40 100 36 C 160 32 210 130 390 182" stroke="#f4c58b" stroke-width="1.5" stroke-linecap="round" />
-            <circle class="peak" cx="100" cy="36" r="4.5" fill="#e8a259" />
+            <path class="line" d="M10 200 C 46 200 58 40 100 36 C 160 32 210 130 390 182" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" />
+            <circle class="peak" cx="100" cy="36" r="4.5" fill="#b9bcbe" />
           </svg>
         </div>
       </section>
 
       <section class="section">
         <div class="container visit">
-          <p class="eyebrow" data-reveal>به کافه جان بیا</p>
+          <p class="eyebrow" data-reveal>به Code Concept بیا</p>
           <h2 class="display h2" data-split>تبریز، خیابان ولیعصر. <em>میزی برایت نگه می‌داریم.</em></h2>
           <div class="visit__row" data-reveal>
             <a class="btn btn--solid" href="./contact.html#reserve">رزرو میز</a>

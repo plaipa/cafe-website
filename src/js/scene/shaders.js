@@ -70,16 +70,17 @@ export const particleVert = /* glsl */ `
     gl_Position = projectionMatrix * mv;
 
     // — colour —
-    vec3 cBean  = vec3(.86, .55, .27);
-    vec3 cCup   = mix(vec3(.98, .78, .50), vec3(1., .93, .80), aRand.y * .7);
-    vec3 cSleep = mix(vec3(.46, .58, .86), vec3(.74, .82, .97), aRand.y);
-    vec3 cAmber = mix(vec3(1., .52, .16), vec3(1., .80, .42), aRand.y);
+    // monochrome palette: steel greys while tired, white when the caffeine arrives
+    vec3 cBean  = vec3(.66, .63, .6);
+    vec3 cCup   = mix(vec3(.8, .82, .84), vec3(1.), aRand.y * .7);
+    vec3 cSleep = mix(vec3(.3, .32, .35), vec3(.52, .54, .57), aRand.y);
+    vec3 cAmber = mix(vec3(.9, .91, .93), vec3(1.), aRand.y);
 
     vec3 col = mix(cBean, cCup, smoothstep(0., 1., s));
     col = mix(col, cSleep, smoothstep(1., 2., s));
     float awake = smoothstep(0., .55, uIgnite * 1.7 - length(aHead - uBrain) * .3);
     col = mix(col, cAmber, awake * headW);
-    col += wave * headW * vec3(.5, .3, .1);
+    col += wave * headW * vec3(.3, .3, .32);
     vColor = col;
 
     // — alpha —
@@ -122,8 +123,8 @@ export const fibreVert = /* glsl */ `
     float head = fract(uTime * speed + aPhase);
     float pulse = smoothstep(.2, 0., abs(aT - head));
     float glow = .16 + pulse * mix(.9, 2.4, local);
-    vec3 sleep = vec3(.38, .5, .82);
-    vec3 awake = vec3(1., .66, .26);
+    vec3 sleep = vec3(.32, .34, .38);
+    vec3 awake = vec3(1.);
     vColor = mix(sleep, awake, local) * glow;
     vAlpha = uShow * mix(.55, 1., local);
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.);
@@ -151,7 +152,7 @@ export const nodeVert = /* glsl */ `
     vec4 mv = modelViewMatrix * vec4(position, 1.);
     gl_Position = projectionMatrix * mv;
     gl_PointSize = (3.2 + tw * 3. + local * 4.) * uPx * (10. / -mv.z);
-    vColor = mix(vec3(.6, .72, 1.), vec3(1., .78, .4), local) * (.7 + tw * .6 + local * .8);
+    vColor = mix(vec3(.5, .52, .56), vec3(1.), local) * (.7 + tw * .6 + local * .8);
     vAlpha = uShow;
   }
 `;
@@ -228,7 +229,7 @@ export const ringFrag = /* glsl */ `
     float ang = atan(vP.y, vP.x);
     float dash = smoothstep(.25, .6, .5 + .5 * sin(ang * uDash + uTime * uDir));
     float fade = .35 + .65 * (.5 + .5 * sin(ang * 2. - uTime * .7 * uDir));
-    gl_FragColor = vec4(vec3(1., .7, .38) * (.4 + .8 * dash), uShow * dash * fade * .7);
+    gl_FragColor = vec4(vec3(.92, .93, .95) * (.4 + .8 * dash), uShow * dash * fade * .7);
   }
 `;
 
@@ -254,7 +255,7 @@ export function patchBeanMaterial(material, uniforms) {
       .replace(
         '#include <opaque_fragment>',
         `float rim = 1. - smoothstep(0., .035, dn - dth);
-         outgoingLight += rim * vec3(1., .6, .25) * 1.5 * step(.001, uDissolve);
+         outgoingLight += rim * vec3(.9, .9, .92) * 1.5 * step(.001, uDissolve);
          #include <opaque_fragment>`
       );
   };

@@ -1,4 +1,5 @@
 /* Small helpers for putting a live 3D scene on an inner page. */
+import { hold } from '../loader.js';
 
 export function canWebGL() {
   try {
@@ -25,7 +26,8 @@ export async function mountScene(host, preset) {
     host?.classList.add('is-static');
     return null;
   }
-  const { createStory } = await import('./story.js');
+  // the intro loader waits for the scene code to arrive
+  const { createStory } = await hold(import('./story.js'));
   const quality = new URLSearchParams(location.search).get('q') || pickQuality();
   const story = createStory({
     canvas,

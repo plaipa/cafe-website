@@ -20,19 +20,20 @@
 
 /* ───────────── Tokens ───────────── */
 :root {
-  --bg: #0b0806;
-  --surface: #14100c;
-  --line: rgba(240, 230, 216, 0.1);
-  --line-strong: rgba(240, 230, 216, 0.22);
+  /* Code Concept: monochrome like the brand — graphite, concrete grey, steel, white */
+  --bg: #0c0d0e;
+  --surface: #151719;
+  --line: rgba(236, 236, 234, 0.1);
+  --line-strong: rgba(236, 236, 234, 0.22);
 
-  --ink: #f0e6d8;
-  --ink-2: #b9ab99;
-  --muted: #8a7d6f;
+  --ink: #ececea;
+  --ink-2: #a9abab;
+  --muted: #77797a;
 
-  --accent: #e8a259;
-  --accent-hi: #f4c58b;
-  --ember: #ff7a3d;
-  --sleep: #8aa6d6;
+  --accent: #b9bcbe;
+  --accent-hi: #ffffff;
+  --ember: #ffffff;
+  --sleep: #7d8188;
 
   --font: 'Estedad', 'Manrope', system-ui, -apple-system, 'Segoe UI', Tahoma, sans-serif;
   --display-lh: 1.32;
@@ -287,11 +288,10 @@ button {
   inset-inline: 0;
   z-index: 100;
   view-transition-name: site-header;
-  transition: background 0.4s, border-color 0.4s;
   border-bottom: 1px solid transparent;
 }
 .site-header.is-scrolled {
-  background: rgba(11, 8, 6, 0.7);
+  background: rgba(12, 13, 14, 0.7);
   backdrop-filter: blur(14px);
   border-bottom-color: var(--line);
 }
@@ -313,6 +313,40 @@ button {
   width: 1.6rem;
   height: 1.6rem;
   color: var(--accent);
+}
+/* text wordmark in the spirit of the Code Concept logo: bold "code" over a light, tracked "concept" */
+.wordmark {
+  display: inline-grid;
+  justify-items: stretch;
+  direction: ltr;
+  line-height: 1;
+  font-family: 'Manrope', system-ui, sans-serif;
+  color: var(--ink);
+}
+.wordmark b {
+  font-weight: 800;
+  font-size: 1.38rem;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+}
+.wordmark span {
+  font-weight: 300;
+  font-size: 0.66rem;
+  letter-spacing: 0.34em;
+  margin-top: 0.12rem;
+  text-transform: lowercase;
+}
+.site-footer .wordmark b {
+  font-size: 1.9rem;
+}
+.site-footer .wordmark span {
+  font-size: 0.9rem;
+}
+.slogan {
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 .brand__name {
   font-size: 1.12rem;
@@ -545,7 +579,7 @@ button {
   padding: 0.8rem 0.8rem 0.8rem 1.2rem;
   border-radius: 999px;
   border: 1px solid var(--line-strong);
-  background: rgba(20, 16, 12, 0.88);
+  background: rgba(21, 23, 25, 0.88);
   backdrop-filter: blur(14px);
   font-size: 0.9rem;
   line-height: 1.4;
@@ -577,6 +611,89 @@ button {
     opacity: 0;
     transform: translateY(1.5rem);
   }
+}
+
+/* ───────────── Intro loader ───────────── */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: none;
+  place-items: center;
+  background: var(--bg);
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 1.15s var(--ease-io);
+}
+.js:not(.seen) .loader {
+  display: grid;
+}
+.loader.is-out {
+  clip-path: inset(0 0 100% 0);
+}
+.loader__inner {
+  display: grid;
+  justify-items: center;
+  gap: 0.4rem;
+  transition: opacity 0.5s, transform 0.9s var(--ease-io);
+}
+.loader.is-out .loader__inner {
+  opacity: 0;
+  transform: translateY(-3rem);
+}
+.loader__cup {
+  width: 92px;
+  height: 92px;
+  margin-bottom: 0.6rem;
+}
+.loader__draw {
+  stroke: var(--ink);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: draw 1.3s var(--ease) 0.1s forwards;
+}
+.loader__coffee {
+  fill: var(--accent);
+  transform: translateY(calc((1 - var(--fill, 0)) * 44px));
+  transition: transform 0.25s linear;
+}
+.loader__steam {
+  stroke: var(--muted);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-dasharray: 5 6;
+  opacity: var(--fill, 0);
+  animation: loader-steam 2.2s linear infinite;
+}
+.loader__brand {
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+.loader__pct {
+  font-size: 0.78rem;
+  color: var(--muted);
+  min-width: 3em;
+  text-align: center;
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes loader-steam {
+  to {
+    stroke-dashoffset: -44;
+  }
+}
+/* while the curtain is down, opening animations wait */
+.js:not(.loaded) .site-header {
+  opacity: 0;
+  transform: translateY(-1rem);
+}
+.site-header {
+  transition: background 0.4s, border-color 0.4s, opacity 0.9s var(--ease) 0.3s, transform 0.9s var(--ease) 0.3s;
 }
 
 /* ───────────── Motion ───────────── */
