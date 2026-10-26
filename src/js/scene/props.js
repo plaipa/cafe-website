@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import { HDRLoader } from 'three/addons/loaders/HDRLoader.js';
 import { beanSurface, rng } from './shapes.js';
 import { reportAssets } from '../loader.js';
+// imported as an asset so the URL is right from any page, including /en/
+import studioHdr from '../../assets/studio_small_09_1k.hdr?url';
 
 /* Minimal, procedurally modelled props for the coffee story:
    a matte-black cup, a glass drop of espresso, caramel ribbons, a chrome
@@ -10,11 +12,10 @@ import { reportAssets } from '../loader.js';
 // every loader uses the default manager; its progress feeds the intro loader
 THREE.DefaultLoadingManager.onProgress = (_url, loaded, total) => reportAssets(loaded, total);
 
-const base = import.meta.env.BASE_URL;
 let envPromise = null;
 /** Soft-box studio HDRI (Poly Haven, CC0) for clean reflections on glass, glaze and chrome. */
 export function loadEnvironment(renderer) {
-  envPromise ??= new HDRLoader().loadAsync(`${base}env/studio_small_09_1k.hdr`).then((hdr) => {
+  envPromise ??= new HDRLoader().loadAsync(studioHdr).then((hdr) => {
     hdr.mapping = THREE.EquirectangularReflectionMapping;
     const pmrem = new THREE.PMREMGenerator(renderer);
     const env = pmrem.fromEquirectangular(hdr).texture;
