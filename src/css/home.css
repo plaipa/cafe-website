@@ -1,0 +1,454 @@
+/* ═════════════ the 3D journey ═════════════ */
+.journey {
+  position: relative;
+  height: 720vh;
+  z-index: 2;
+}
+.journey__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--bg);
+}
+.journey__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1.6s ease;
+}
+.webgl .journey__canvas {
+  opacity: 1;
+}
+.journey__veil {
+  --side: to left;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--side), rgba(11, 8, 6, 0.85) 0%, rgba(11, 8, 6, 0.45) 30%, transparent 55%),
+    linear-gradient(to bottom, rgba(11, 8, 6, 0.6), transparent 16%, transparent 80%, rgba(11, 8, 6, 0.85));
+}
+:root[dir='ltr'] .journey__veil {
+  --side: to right;
+}
+
+.journey__chapters {
+  position: absolute;
+  inset: 0;
+  width: min(100% - 2 * var(--gutter), 1240px);
+  margin-inline: auto;
+}
+.chapter {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: min(34rem, 44vw);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.3rem;
+  padding-top: var(--header-h);
+  pointer-events: none;
+}
+.chapter > * {
+  opacity: 0;
+  transform: translateY(1.6rem);
+  transition: opacity 0.6s var(--ease), transform 0.9s var(--ease);
+}
+.chapter.is-active {
+  pointer-events: auto;
+}
+.chapter.is-active > * {
+  opacity: 1;
+  transform: none;
+}
+.chapter.is-active > :nth-child(2) { transition-delay: 0.06s; }
+.chapter.is-active > :nth-child(3) { transition-delay: 0.12s; }
+.chapter.is-active > :nth-child(4) { transition-delay: 0.18s; }
+.chapter.is-active > :nth-child(5) { transition-delay: 0.24s; }
+
+.chapter__title {
+  font-size: clamp(2.2rem, 1.2rem + 3vw, 4.2rem);
+}
+.chapter--intro .chapter__title {
+  font-size: clamp(3rem, 1rem + 6vw, 7rem);
+}
+.chapter__title em {
+  display: block;
+}
+.chapter__text {
+  color: var(--ink-2);
+  font-weight: 300;
+  font-size: clamp(1rem, 0.94rem + 0.3vw, 1.18rem);
+  max-width: 29em;
+}
+.chapter__text strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+.chapter__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.4rem;
+  margin-top: 0.6rem;
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  border-top: 1px solid var(--line-strong);
+}
+.stats li {
+  padding: 1rem 0 0;
+  padding-inline-end: 1rem;
+  display: grid;
+  gap: 0.2rem;
+}
+.stats b {
+  font-weight: 250;
+  font-size: clamp(1.5rem, 1.1rem + 1vw, 2.3rem);
+  line-height: 1.2;
+  color: var(--accent-hi);
+}
+.stats span {
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+/* DOM tags pinned to points on the 3D figure */
+.tag {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s;
+  will-change: transform;
+}
+.tag.is-on {
+  opacity: 1;
+}
+.tag i {
+  position: absolute;
+  left: -4px;
+  top: -4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sleep);
+  box-shadow: 0 0 14px var(--sleep);
+}
+.tag--warm i {
+  background: var(--ember);
+  box-shadow: 0 0 14px var(--ember);
+}
+.tag i::after {
+  content: '';
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  border: 1px solid var(--sleep);
+  animation: ping 2.2s ease-out infinite;
+}
+.tag--warm i::after {
+  border-color: var(--ember);
+}
+@keyframes ping {
+  from { transform: scale(0.5); opacity: 1; }
+  to { transform: scale(2.2); opacity: 0; }
+}
+/* labels point away from the figure, into empty space; .tag--in points towards the copy instead */
+.tag span {
+  position: absolute;
+  inset-inline-start: 46px;
+  top: -0.8rem;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--ink);
+  padding-block: 0.2rem;
+  border-bottom: 1px solid currentColor;
+}
+.tag span::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: -42px;
+  bottom: -1px;
+  width: 40px;
+  height: 1px;
+  background: currentColor;
+}
+.tag--in span {
+  inset-inline-start: auto;
+  inset-inline-end: 46px;
+}
+.tag--in span::before {
+  inset-inline-start: auto;
+  inset-inline-end: -42px;
+}
+
+/* chapter navigation */
+.journey__progress {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 1.6rem;
+  margin-inline: auto;
+  width: min(32rem, calc(100% - 2 * var(--gutter)));
+  display: flex;
+  justify-content: space-between;
+  z-index: 4;
+}
+.journey__progress::before,
+.journey__bar {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  top: 3px;
+  height: 1px;
+}
+.journey__progress::before {
+  width: 100%;
+  background: var(--line-strong);
+}
+.journey__bar {
+  width: calc(var(--fill, 0) * 100%);
+  background: var(--accent);
+  transition: width 0.8s var(--ease);
+}
+.journey__progress button {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--muted);
+  font-size: 0.74rem;
+  transition: color 0.3s;
+}
+.journey__progress button::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--line-strong);
+  z-index: 1;
+  transition: all 0.4s var(--ease);
+}
+.journey__progress button.is-on {
+  color: var(--ink);
+}
+.journey__progress button.is-on::before {
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(232, 162, 89, 0.18);
+}
+.journey__progress button:hover {
+  color: var(--ink);
+}
+
+.scroll-hint {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 5.4rem;
+  margin-inline: auto;
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+  transition: opacity 0.5s;
+}
+.scroll-hint::after {
+  content: '';
+  width: 1px;
+  height: 2.4rem;
+  background: linear-gradient(var(--accent), transparent);
+  transform-origin: top;
+  animation: cue 2.2s var(--ease-io) infinite;
+}
+.scroll-hint.is-hidden {
+  opacity: 0;
+}
+
+/* ── fallback: no WebGL / no JS → the same story as a normal page ── */
+.no-webgl .journey,
+html:not(.js) .journey {
+  height: auto;
+}
+.no-webgl .journey__sticky,
+html:not(.js) .journey__sticky {
+  position: relative;
+  height: auto;
+  overflow: visible;
+  padding-block: calc(var(--header-h) + 3rem) 3rem;
+}
+.no-webgl :is(.journey__canvas, .journey__veil, .journey__progress, .tag, .scroll-hint),
+html:not(.js) :is(.journey__canvas, .journey__veil, .journey__progress, .tag, .scroll-hint) {
+  display: none;
+}
+.no-webgl .journey__chapters,
+html:not(.js) .journey__chapters {
+  position: static;
+  display: grid;
+  gap: 5rem;
+}
+.no-webgl .chapter,
+html:not(.js) .chapter {
+  position: static;
+  width: min(40rem, 100%);
+  padding-top: 0;
+  pointer-events: auto;
+}
+.no-webgl .chapter > *,
+html:not(.js) .chapter > * {
+  opacity: 1;
+  transform: none;
+}
+
+/* ═════════════ after the journey ═════════════ */
+.intro-block {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem clamp(2rem, 6vw, 6rem);
+}
+.pillars {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: clamp(1rem, 4vw, 3rem);
+}
+.pillars li {
+  display: grid;
+  gap: 0.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--line);
+}
+.pillars b {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+.pillars h3 {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+.pillars p {
+  color: var(--ink-2);
+  font-weight: 300;
+  font-size: 0.94rem;
+}
+
+.teaser {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(2rem, 6vw, 6rem);
+}
+.teaser__copy {
+  display: grid;
+  gap: 1.4rem;
+  justify-items: start;
+}
+.teaser__curve {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.teaser__curve .line {
+  stroke-dasharray: 520;
+  stroke-dashoffset: 520;
+  transition: stroke-dashoffset 2.4s var(--ease-io) 0.2s;
+}
+.teaser__curve .fill {
+  opacity: 0;
+  transition: opacity 1.4s ease 1.2s;
+}
+.teaser__curve .peak {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0);
+  transition: transform 0.8s var(--ease) 1.4s, opacity 0.4s 1.4s;
+}
+.teaser__curve.is-in .line {
+  stroke-dashoffset: 0;
+}
+.teaser__curve.is-in .fill,
+.teaser__curve.is-in .peak {
+  opacity: 1;
+  transform: none;
+}
+
+.visit {
+  display: grid;
+  gap: 2rem;
+  justify-items: start;
+}
+.visit__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .journey {
+    height: 640vh;
+  }
+  .journey__veil {
+    background:
+      linear-gradient(to top, rgba(11, 8, 6, 0.97) 0%, rgba(11, 8, 6, 0.8) 38%, transparent 60%),
+      linear-gradient(to bottom, rgba(11, 8, 6, 0.6), transparent 14%);
+  }
+  .chapter {
+    width: 100%;
+    justify-content: flex-end;
+    padding-top: 0;
+    padding-bottom: 6rem;
+    gap: 0.9rem;
+  }
+  .chapter__title {
+    font-size: clamp(1.9rem, 7.4vw, 2.8rem);
+  }
+  .chapter--intro .chapter__title {
+    font-size: clamp(2.7rem, 12vw, 4rem);
+  }
+  .chapter__text {
+    font-size: 0.97rem;
+  }
+  .stats span {
+    font-size: 0.7rem;
+  }
+  .journey__progress button {
+    font-size: 0.66rem;
+  }
+  .scroll-hint {
+    display: none;
+  }
+  .tag {
+    display: none; /* not enough room beside the figure on phones */
+  }
+  .intro-block,
+  .teaser {
+    grid-template-columns: 1fr;
+  }
+  .pillars {
+    grid-column: auto;
+    grid-template-columns: 1fr;
+  }
+}

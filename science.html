@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <!--@include head-->
+    <title>علم قهوه | کافه جان تبریز</title>
+    <meta name="description" content="کافئینِ فنجانت کِی اوج می‌گیرد و تا وقتِ خواب چقدر از آن باقی می‌ماند؟ منحنیِ تعاملیِ کافئین و مغزی سه‌بعدی که با آن روشن می‌شود." />
+  </head>
+  <body class="page-science">
+    <!--@include header-->
+    <main id="main">
+      <section class="page-hero page-hero--text">
+        <div class="container page-hero__copy">
+          <p class="eyebrow" data-reveal>علمِ قهوه</p>
+          <h1 class="display h1" data-split>یک فنجان، <em>چند ساعت در تو</em> می‌ماند</h1>
+          <p class="lead" data-reveal style="--d: 0.3s">نوشیدنی و ساعت را انتخاب کن تا ببینی کافئین کِی اوج می‌گیرد و تا وقتِ خواب چقدر از آن باقی است. مغزِ کنارِ نمودار هم همراهِ مقدارِ کافئین روشن و خاموش می‌شود.</p>
+        </div>
+      </section>
+
+      <section class="section" id="lab" style="padding-top: 1rem">
+        <div class="container lab">
+          <div class="lab__panel">
+            <div class="field">
+              <span class="field__label" id="dose-label">نوشیدنی</span>
+              <div class="chips" role="group" aria-labelledby="dose-label">
+                <button class="chip" type="button" data-dose data-value="63" aria-pressed="false">اسپرسوی تک</button>
+                <button class="chip" type="button" data-dose data-value="126" aria-pressed="true">اسپرسوی دوبل</button>
+                <button class="chip" type="button" data-dose data-value="150" aria-pressed="false">وی‌شصت</button>
+                <button class="chip" type="button" data-dose data-value="200" aria-pressed="false">کلدبرو</button>
+                <button class="chip" type="button" data-dose data-value="65" aria-pressed="false">قهوهٔ ترک</button>
+                <button class="chip" type="button" data-dose data-value="47" aria-pressed="false">چای سیاه</button>
+              </div>
+            </div>
+            <div class="field">
+              <span class="field__label" id="cups-label">تعداد فنجان <small>(هر ۳ ساعت یکی)</small></span>
+              <div class="chips" role="group" aria-labelledby="cups-label">
+                <button class="chip" type="button" data-cups data-value="1" aria-pressed="true">۱</button>
+                <button class="chip" type="button" data-cups data-value="2" aria-pressed="false">۲</button>
+                <button class="chip" type="button" data-cups data-value="3" aria-pressed="false">۳</button>
+              </div>
+            </div>
+            <div class="field">
+              <label class="field__label" for="drink-time">ساعتِ اولین فنجان <output id="drink-time-out" for="drink-time"></output></label>
+              <input class="range" id="drink-time" type="range" min="6" max="20" step="0.5" value="8" dir="ltr" />
+            </div>
+            <div class="field">
+              <label class="field__label" for="bed-time">ساعتِ خواب <output id="bed-time-out" for="bed-time"></output></label>
+              <input class="range" id="bed-time" type="range" min="21" max="26" step="0.5" value="23" dir="ltr" />
+            </div>
+
+            <figure class="chart" id="chart">
+              <figcaption class="chart__title" id="chart-title">کافئینِ تخمینی در بدن (میلی‌گرم) در طول روز</figcaption>
+            </figure>
+
+            <div class="readout" aria-live="polite">
+              <div><b id="out-peak-time"></b><span>زمانِ اوج</span></div>
+              <div><b id="out-peak-mg"></b><span>بیشترین مقدار</span></div>
+              <div><b id="out-bed-mg"></b><span>باقی‌مانده هنگامِ خواب</span></div>
+              <p id="out-verdict"></p>
+            </div>
+
+            <details class="data-table">
+              <summary>نمایشِ جدولِ ساعت‌به‌ساعت</summary>
+              <table id="chart-table">
+                <thead><tr><th>ساعت</th><th>کافئین (میلی‌گرم)</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </details>
+          </div>
+
+          <div class="lab__scene" data-scene="head" aria-hidden="true">
+            <canvas></canvas>
+            <p class="lab__meter" id="lab-meter"></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow" data-reveal>در بدنِ تو</p>
+              <h2 class="display h2" data-split>از اولین جرعه تا وقتِ خواب</h2>
+            </div>
+          </div>
+          <ol class="steps">
+            <li data-reveal><b>~۱۰ دقیقه</b><div><h3>جذب شروع می‌شود</h3><p>کافئین از معده و روده به‌سرعت وارد خون می‌شود و تقریباً همه‌اش در حدودِ ۴۵ دقیقه جذب شده است.</p></div></li>
+            <li data-reveal><b>۳۰–۶۰ دقیقه</b><div><h3>اوج</h3><p>غلظتِ کافئین در خون به بیشترین مقدار می‌رسد و اثرِ هشیاری بیش از هر زمانی حس می‌شود.</p></div></li>
+            <li data-reveal><b>~۵ ساعت</b><div><h3>نیمی از آن رفته است</h3><p>کبد کافئین را به‌تدریج تجزیه می‌کند. نیمه‌عمر در بزرگسالان به‌طور معمول بین ۲ تا ۸ ساعت است و از فردی به فردِ دیگر فرق می‌کند.</p></div></li>
+            <li data-reveal><b>۶ ساعت پیش از خواب</b><div><h3>مرزِ خواب</h3><p>پژوهش‌ها نشان داده‌اند کافئین حتی ۶ ساعت پیش از خواب هم می‌تواند خواب را کوتاه‌تر و سبک‌تر کند.</p></div></li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section" style="padding-top: 0">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow" data-reveal>باور یا واقعیت</p>
+              <h2 class="display h2" data-split>سه باورِ رایج دربارهٔ قهوه</h2>
+            </div>
+          </div>
+          <ul class="facts">
+            <li data-reveal><span class="myth">قهوه بدن را کم‌آب می‌کند.</span><p>برای کسی که به‌طور منظم قهوه می‌نوشد، مصرفِ معمولی بدن را کم‌آب نمی‌کند و بخشی از آبِ روزانه به حساب می‌آید.</p></li>
+            <li data-reveal style="--d: 0.1s"><span class="myth">قهوه جای خواب را می‌گیرد.</span><p>کافئین فقط پیامِ خستگی را موقتاً پنهان می‌کند؛ آدنوزین هنوز جمع می‌شود و نیاز به خواب سر جایش است.</p></li>
+            <li data-reveal style="--d: 0.2s"><span class="myth">اسپرسو پرکافئین‌ترین قهوه است.</span><p>اسپرسو غلیظ‌تر است، اما یک لیوان قهوهٔ دمی معمولاً در مجموع کافئینِ بیشتری از یک شاتِ اسپرسو دارد.</p></li>
+          </ul>
+          <p class="disclaimer" data-reveal style="margin-top: 3rem">این صفحه برای آگاهیِ عمومی است و جای توصیهٔ پزشکی را نمی‌گیرد. نمودار بر پایهٔ یک مدلِ ساده (جذب در حدود ۴۵ دقیقه و نیمه‌عمرِ ۵ ساعت) رسم شده است؛ در واقعیت این اعداد بین افراد بسیار فرق می‌کند: برای مثال در سیگاری‌ها کوتاه‌تر و در دورانِ بارداری طولانی‌تر است. سقفِ ۴۰۰ میلی‌گرم در روز برای اغلبِ بزرگسالانِ سالم است و برای کودکان، نوجوانان، باردارها و افرادِ دارای برخی بیماری‌ها کمتر است.</p>
+        </div>
+      </section>
+    </main>
+    <!--@include footer-->
+    <script type="module" src="/src/js/science.js"></script>
+  </body>
+</html>
