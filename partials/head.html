@@ -1,5 +1,10 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="theme-color" content="#0b0806" />
+<meta name="theme-color" content="#e8e7e4" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="alternate" hreflang="{{altLang}}" href="{{alt}}" vite-ignore />
+<script>
+  // before first paint: mark JS on, and skip the intro loader once it has been seen this session
+  document.documentElement.classList.add('js');
+  try { if (sessionStorage.getItem('cc-seen')) document.documentElement.classList.add('seen'); } catch (e) {}
+</script>

@@ -95,7 +95,7 @@ svg.setAttribute('role', 'img');
 svg.setAttribute('aria-labelledby', 'chart-title');
 svg.innerHTML = `
   <defs><linearGradient id="area-grad" x1="0" x2="0" y1="0" y2="1">
-    <stop offset="0" stop-color="#e8a259" stop-opacity=".28"/><stop offset="1" stop-color="#e8a259" stop-opacity="0"/>
+    <stop offset="0" stop-color="#6f6e6c" stop-opacity=".28"/><stop offset="1" stop-color="#6f6e6c" stop-opacity="0"/>
   </linearGradient></defs>
   <g class="grid"></g><g class="axis"></g>
   <path class="area"/><path class="curve"/>
@@ -203,7 +203,8 @@ function setPlayhead(t, showTip) {
     tip.style.opacity = '1';
   }
   // 200 mg ≈ fully lit; sqrt keeps small doses visibly glowing
-  story?.set({ ignite: Math.min(1, Math.sqrt(a / 200)) });
+  // one molecule ≈ 10 mg of caffeine
+  story?.setMolecules(a / 10);
 }
 
 function pointerToTime(e) {
@@ -236,7 +237,7 @@ function autoplay(now) {
 
 draw();
 setPlayhead(state.drink + 0.75, false);
-mountScene(document.querySelector('[data-scene]'), 'head').then((s) => {
+mountScene(document.querySelector('[data-scene]'), 'molecules').then((s) => {
   story = s;
   setPlayhead(play, false);
 });

@@ -1,0 +1,16 @@
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__inner">
+    <svg class="loader__cup" viewBox="0 0 120 120" fill="none">
+      <defs>
+        <clipPath id="loader-cup-inside"><path d="M30 50h52v14c0 15-11.6 26-26 26S30 79 30 64V50z" /></clipPath>
+      </defs>
+      <rect class="loader__coffee" clip-path="url(#loader-cup-inside)" x="26" y="50" width="60" height="44" />
+      <path class="loader__draw" d="M30 50h52v14c0 15-11.6 26-26 26S30 79 30 64V50z" />
+      <path class="loader__draw" d="M82 55h5a8 8 0 0 1 0 16h-6" />
+      <path class="loader__draw" d="M22 98h68" />
+      <path class="loader__steam" d="M47 42c-4-5 4-8 0-14M60 42c-4-5 4-8 0-14M73 42c-4-5 4-8 0-14" />
+    </svg>
+    <p class="loader__brand">{{brand}}</p>
+    <p class="loader__pct num"><span id="loader-pct">0</span>%</p>
+  </div>
+</div>

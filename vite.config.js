@@ -29,6 +29,7 @@ function bilingual() {
         const lang = /[\\/]en[\\/]/.test(file) ? 'en' : 'fa';
         const { strings } = await load('strings.js');
         const renderers = await load('render.js');
+        const data = await load('menu-data.js');
         const t = { ...strings[lang] };
         t.alt = lang === 'fa' ? `./en/${page}.html` : `../${page}.html`;
         t.altLang = lang === 'fa' ? 'en' : 'fa';
@@ -37,7 +38,7 @@ function bilingual() {
         return fill(
           html
             .replace(/<!--@include (\w+)-->/g, (_, name) => read(name))
-            .replace(/<!--@render (\w+)-->/g, (_, name) => renderers[name](lang))
+            .replace(/<!--@render (\w+)-->/g, (_, name) => renderers[name](lang, data))
         )
           .replace(`data-nav="${page}"`, 'aria-current="page"')
           .replace(/\sdata-nav="\w+"/g, '');
