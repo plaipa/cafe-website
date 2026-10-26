@@ -13,6 +13,8 @@ npm run build    # static output in dist/ (relative paths, host anywhere)
 npm run preview
 ```
 
+Every push to `main` builds the site and publishes it to GitHub Pages (`.github/workflows/deploy.yml`). In the repository settings, **Pages → Source** must be set to **GitHub Actions**.
+
 ## صفحه‌ها · Pages
 
 | فارسی (پیش‌فرض) | English | 3D |
