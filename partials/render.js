@@ -1,13 +1,16 @@
 // Build-time HTML generators for content shared by both languages.
-import { categories, items, level } from './menu-data.js';
+// `data` is partials/menu-data.js, passed in fresh by the Vite plugin on every render
 
 const nf = { fa: new Intl.NumberFormat('fa-IR'), en: new Intl.NumberFormat('en-US') };
 const T = {
-  fa: { toman: 'تومان', caffeine: 'کافئین', mg: 'میلی‌گرم', none: 'بدون کافئین', all: 'همه', sig: 'امضا' },
-  en: { toman: 'Toman', caffeine: 'Caffeine', mg: 'mg', none: 'Caffeine-free', all: 'All', sig: 'Signature' },
+  fa: { caffeine: 'کافئین', mg: 'میلی‌گرم', none: 'بدون کافئین', all: 'همه', sig: 'امضا' },
+  en: { caffeine: 'Caffeine', mg: 'mg', none: 'Caffeine-free', all: 'All', sig: 'Signature' },
 };
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+
+// caffeine (mg) → 0..5 bars on the energy meter
+const level = (mg) => (mg <= 5 ? 0 : mg < 30 ? 1 : mg < 70 ? 2 : mg < 120 ? 3 : mg < 170 ? 4 : 5);
 
 function meter(lang, mg) {
   const t = T[lang];
@@ -16,11 +19,7 @@ function meter(lang, mg) {
   return `<span class="meter-label"><span class="meter" data-level="${lv}" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>${label}</span>`;
 }
 
-function price(lang, p) {
-  return `<span class="price num">${nf[lang].format(p)} <small>${T[lang].toman}</small></span>`;
-}
-
-export function signatures(lang) {
+export function signatures(lang, { items }) {
   return items
     .filter((i) => i.sig)
     .map((item, n) => {
@@ -29,20 +28,20 @@ export function signatures(lang) {
   <span class="card__index num">${nf[lang].format(n + 1).padStart(2, nf[lang].format(0))}</span>
   <h3>${esc(name)}</h3>
   <p>${esc(desc)}</p>
-  <div class="card__foot">${meter(lang, item.mg)}${price(lang, item.price)}</div>
+  <div class="card__foot">${meter(lang, item.mg)}</div>
 </article>`;
     })
     .join('\n');
 }
 
-export function menuFilters(lang) {
+export function menuFilters(lang, { categories }) {
   const t = T[lang];
   return [`<button class="chip" type="button" aria-pressed="true" data-filter="all">${t.all}</button>`]
     .concat(categories.map((c) => `<button class="chip" type="button" aria-pressed="false" data-filter="${c.id}">${c[lang]}</button>`))
     .join('');
 }
 
-export function menu(lang) {
+export function menu(lang, { categories, items }) {
   const t = T[lang];
   return categories
     .map((c) => {
@@ -53,8 +52,6 @@ export function menu(lang) {
           return `<li class="menu-item" data-mg="${item.mg}">
   <div class="menu-item__head">
     <h3>${esc(name)}${item.sig ? ` <span class="badge">${t.sig}</span>` : ''}</h3>
-    <span class="menu-item__dots" aria-hidden="true"></span>
-    ${price(lang, item.price)}
   </div>
   <p>${esc(desc)}</p>
   ${meter(lang, item.mg)}

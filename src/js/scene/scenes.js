@@ -1,6 +1,17 @@
 import * as THREE from 'three';
-import { buildTable, createWorld } from './world.js';
-import { CAFFEINE, MoleculeField } from './molecule.js';
+import { createWorld } from './world.js';
+import {
+  createBeanBurst,
+  createBeanScatter,
+  createCup,
+  createDrop,
+  createPortafilter,
+  createRibbons,
+  createShadowCatcher,
+  createSteam,
+  createStreams,
+} from './props.js';
+import { MoleculeField } from './molecule.js';
 import { rng } from './shapes.js';
 
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -18,79 +29,106 @@ function keyed(p, keys) {
   return keys[keys.length - 1][1];
 }
 
-/* Scroll progress → shot. Camera keys are [r, azimuth°, elevation°, targetY]. */
-const JOURNEY = {
+/* Scroll progress → shot. Three acts: the drop (0–⅓), the extraction (⅓–⅔), the reward (⅔–1). */
+const ACTS = {
   camera: [
-    [0, [0.6, 26, 22, 0.05]],
-    [0.1, [0.58, 30, 20, 0.05]],
-    [0.3, [0.52, 44, 15, 0.04]],
-    [0.42, [0.36, 58, 72, 0.06]],
-    [0.5, [0.36, 70, 74, 0.06]],
-    [0.6, [0.5, 24, 16, 0.15]],
-    [0.72, [0.38, 8, 10, 0.19]],
-    [0.86, [0.4, -12, 14, 0.19]],
-    [0.94, [0.62, 14, 22, 0.1]],
-    [1, [0.8, 22, 26, 0.07]],
+    // [radius, azimuth°, elevation°, targetY]
+    [0, [0.62, 0, 4, 0]],
+    [0.3, [0.6, -6, 6, 0]],
+    [0.42, [0.64, -18, 10, 0]],
+    [0.62, [0.7, -28, 12, 0]],
+    [0.76, [0.54, 0, 6, -0.03]],
+    [1, [0.5, 6, 8, -0.03]],
   ],
-  beans: [[0, 0], [0.1, 0], [0.32, 1], [1, 1]],
-  steam: [[0, 1], [0.42, 1.25], [0.56, 0.7], [0.9, 0.7], [1, 1]],
-  assembly: [[0, 0], [0.55, 0], [0.71, 1], [1, 1]],
-  molSize: [[0, 0], [0.53, 0], [0.57, 1], [0.92, 1], [1, 0]],
-  molY: [[0, 0.1], [0.55, 0.12], [0.7, 0.19], [0.92, 0.19], [1, 0.08]],
-  sun: [[0, 2.6], [0.9, 2.6], [1, 3.2]],
+  dropY: [[0, -0.085], [0.26, -0.085], [0.38, 0.55]],
+  dropSpin: [[0, 0], [0.38, 2.2]],
+  ribbons: [[0, 1], [0.24, 1], [0.36, 0]],
+  // portafilter: [x, y, rotX, rotY, rotZ]
+  porta: [
+    [0, [0, 0.6, 0.5, -0.6, 0.2]],
+    [0.3, [0, 0.6, 0.5, -0.6, 0.2]],
+    [0.42, [0, 0.01, 0.42, -0.75, 0.12]],
+    [0.62, [0, 0.02, 0.32, -1.1, 0.05]],
+    [0.76, [0, 0.045, 0, 0.35, 0]],
+    [1, [0, 0.045, 0, 0.5, 0]],
+  ],
+  burst: [[0, 0], [0.36, 0], [0.58, 1], [0.66, 1.15], [0.76, 2.6]],
+  cupY: [[0, -0.6], [0.64, -0.6], [0.78, -0.115]],
+  pour: [[0, 0], [0.76, 0], [0.84, 1]],
+  steam: [[0, 0], [0.86, 0], [1, 1]],
 };
 
-/** The home page story, driven by scroll progress. */
+/** The home page story, driven by scroll progress. `side` puts the subject opposite the copy. */
 export async function createJourney({ canvas, quality, side }) {
-  const world = await createWorld({ canvas, quality, side });
-  const set = await buildTable(world, { beans: quality === 'high' ? 34 : 22, croissant: true, quality, beanDrop: 0.55, side });
+  const world = await createWorld({ canvas, quality, side: side * 0.25 });
+  const { scene } = world;
+  const high = quality === 'high';
 
-  const field = new MoleculeField({ max: 1, unit: 0.011, quality });
-  world.scene.add(field);
-  const r = rng(12);
-  // atoms rise from random points on the coffee surface
-  const sources = CAFFEINE.atoms.map(() => {
-    const a = r() * Math.PI * 2;
-    const d = Math.sqrt(r()) * set.coffeeR * 0.8;
-    return new THREE.Vector3(Math.cos(a) * d, set.coffeeY, Math.sin(a) * d);
-  });
+  const drop = createDrop({ quality });
+  scene.add(drop);
+  const ribbons = createRibbons({ quality, count: high ? 3 : 2 });
+  ribbons.position.set(side * 0.17, 0, -0.1);
+  scene.add(ribbons);
+
+  const porta = createPortafilter();
+  scene.add(porta);
+  const burst = createBeanBurst({ quality, count: high ? 170 : 90 });
+  scene.add(burst);
+
+  const cup = createCup({ crema: { swirl: true } });
+  cup.rotation.y = -0.5;
+  scene.add(cup);
+  const streams = createStreams(2);
+  scene.add(streams);
+  const steam = createSteam();
+  scene.add(steam);
 
   let progress = 0;
   let shown = 0;
-  const m = new THREE.Matrix4();
-  const q = new THREE.Quaternion();
-  const e = new THREE.Euler();
+  const tips = [new THREE.Vector3(), new THREE.Vector3()];
   world.onFrame((dt, time) => {
     shown = dt >= 1 ? progress : lerp(shown, progress, 1 - Math.pow(0.0015, dt));
     const P = shown;
-    const [rad, az, el, ty] = keyed(P, JOURNEY.camera);
-    Object.assign(world.orbit, { r: rad, az: az + Math.sin(time * 0.15) * 2, el, ty });
+    const [r, az, el, ty] = keyed(P, ACTS.camera);
+    Object.assign(world.orbit, { r, az: az + Math.sin(time * 0.2) * 1.5, el, ty });
 
-    set.beans.update(keyed(P, JOURNEY.beans), time);
-    set.steam.update(time, world.camera, keyed(P, JOURNEY.steam));
-    world.sun.intensity = keyed(P, JOURNEY.sun);
+    // act 1 — the drop, bobbing, with caramel flowing beside it
+    const dy = keyed(P, ACTS.dropY);
+    drop.visible = dy < 0.5;
+    drop.position.y = dy + Math.sin(time * 0.9) * 0.004;
+    drop.rotation.y = time * 0.25 + keyed(P, ACTS.dropSpin);
+    drop.userData.crema.rotation.z = time * 0.15;
+    const ra = keyed(P, ACTS.ribbons);
+    ribbons.visible = ra > 0.01;
+    if (ribbons.visible) ribbons.update(time, ra);
 
-    const size = keyed(P, JOURNEY.molSize);
-    field.visible = size > 0.001;
-    if (field.visible) {
-      e.set(0.35 + Math.sin(time * 0.4) * 0.15, time * 0.35 + P * 3, 0.1);
-      q.setFromEuler(e);
-      m.compose(new THREE.Vector3(0, keyed(P, JOURNEY.molY), 0), q, new THREE.Vector3(1, 1, 1));
-      field.set(0, m, { assembly: keyed(P, JOURNEY.assembly), sources, size });
-    }
+    // act 2 — the portafilter arrives and beans burst around it
+    const [px, py, rx, ry, rz] = keyed(P, ACTS.porta);
+    porta.position.set(px, py + Math.sin(time * 0.7) * 0.003 * (P < 0.7 ? 1 : 0), 0);
+    porta.rotation.set(rx, ry, rz);
+    porta.visible = py < 0.55;
+    const e = keyed(P, ACTS.burst);
+    burst.visible = e > 0.001 && e < 2.5;
+    burst.position.copy(porta.position);
+    if (burst.visible) burst.update(e, time);
+
+    // act 3 — the reward: espresso pours into the cup
+    const cy = keyed(P, ACTS.cupY);
+    cup.visible = cy > -0.55;
+    cup.position.y = cy;
+    cup.userData.coffee.rotation.z = time * 0.2;
+    const pour = keyed(P, ACTS.pour);
+    porta.updateMatrixWorld();
+    porta.userData.spouts.forEach((s, i) => tips[i].copy(s).applyMatrix4(porta.matrixWorld));
+    streams.place(tips, cy + cup.userData.level, pour, time);
+    steam.position.set(0, cy + cup.userData.level, 0);
+    steam.update(time, world.camera, keyed(P, ACTS.steam));
   });
 
-  const tmp = new THREE.Vector3();
   return {
     ...world,
     setProgress(p) {
       progress = p;
-    },
-    /** Screen position of a named atom of the molecule (for DOM labels). */
-    atomOnScreen(index) {
-      tmp.copy(field.atom(0, index));
-      field.localToWorld(tmp);
-      return world.project(tmp);
     },
     renderStill(p = progress) {
       progress = p;
@@ -101,73 +139,99 @@ export async function createJourney({ canvas, quality, side }) {
 }
 
 /* ───────────── inner pages ───────────── */
-const VIGNETTES = {
-  // menu: the cup up close, slowly turning
-  cup: { beans: 12, croissant: false, camera: [0.42, 30, 30, 0.04], spin: 7, ring: [0.09, 0.16] },
-  // about: a little still life with a croissant
-  still: { beans: 20, croissant: true, camera: [0.62, 18, 34, 0.03], spin: 0, sway: 10, ring: [0.1, 0.26] },
-  // science: caffeine molecules floating above the cup; their number follows the caffeine level
-  molecules: { beans: 0, croissant: false, camera: [0.66, 14, 12, 0.17], spin: 0, sway: 6, molecules: 30 },
-};
-
 export async function createVignette({ canvas, quality, preset }) {
-  const cfg = VIGNETTES[preset];
   const world = await createWorld({ canvas, quality, side: 0 });
-  const set = await buildTable(world, { beans: cfg.beans, croissant: cfg.croissant, quality, beanRing: cfg.ring });
-  const [rad, az, el, ty] = cfg.camera;
-  Object.assign(world.orbit, { r: rad, az, el, ty });
+  const { scene } = world;
+  let tick = () => {};
+  let setMolecules = () => {};
 
-  let field = null;
-  let wanted = 0;
-  const shownSize = [];
-  const drift = [];
-  if (cfg.molecules) {
-    field = new MoleculeField({ max: cfg.molecules, unit: 0.0075, quality });
-    world.scene.add(field);
+  if (preset === 'cup') {
+    // menu: a cup with a poured heart, beans around it, slowly turning
+    scene.add(createShadowCatcher(3, 0.5));
+    const cup = createCup({ crema: { swirl: false, heart: true } });
+    cup.rotation.y = -0.6;
+    scene.add(cup, createBeanScatter({ quality, count: 14 }));
+    const steam = createSteam();
+    steam.position.y = cup.userData.level;
+    scene.add(steam);
+    Object.assign(world.orbit, { r: 0.36, az: 20, el: 28, ty: 0.035 });
+    tick = (dt, time) => {
+      world.orbit.az = 20 + time * 6;
+      steam.update(time, world.camera, 1);
+    };
+  } else if (preset === 'pour') {
+    // about: espresso pouring from the portafilter into the cup, on a loop
+    const porta = createPortafilter();
+    porta.position.y = 0.045;
+    porta.rotation.y = 0.45; // handle off to the side, slightly away from the viewer
+    const cup = createCup({ crema: { swirl: true } });
+    cup.position.y = -0.115;
+    cup.rotation.y = -0.5;
+    const streams = createStreams(2);
+    const steam = createSteam();
+    steam.position.y = cup.position.y + cup.userData.level;
+    scene.add(porta, cup, streams, steam);
+    Object.assign(world.orbit, { r: 0.5, az: 4, el: 6, ty: -0.03 });
+    const tips = [new THREE.Vector3(), new THREE.Vector3()];
+    tick = (dt, time) => {
+      world.orbit.az = 4 + Math.sin(time * 0.2) * 10;
+      porta.updateMatrixWorld();
+      porta.userData.spouts.forEach((s, i) => tips[i].copy(s).applyMatrix4(porta.matrixWorld));
+      streams.place(tips, cup.position.y + cup.userData.level, 1, time);
+      cup.userData.coffee.rotation.z = time * 0.2;
+      steam.update(time, world.camera, 0.8);
+    };
+  } else if (preset === 'molecules') {
+    // science: caffeine molecules hover above a cup; their number follows the caffeine level
+    const MAX = 30;
+    const cup = createCup({ crema: { swirl: true } });
+    cup.rotation.y = -0.5;
+    const steam = createSteam();
+    steam.position.y = cup.userData.level;
+    scene.add(cup, steam);
+    const field = new MoleculeField({ max: MAX, unit: 0.0075, quality });
+    scene.add(field);
+    Object.assign(world.orbit, { r: 0.66, az: 10, el: 10, ty: 0.15 });
     const r = rng(5);
-    for (let i = 0; i < cfg.molecules; i++) {
-      // a loose cloud above the cup, denser near the middle
+    const drift = Array.from({ length: MAX }, () => {
       const a = r() * Math.PI * 2;
-      const d = Math.pow(r(), 0.7) * 0.2;
-      drift.push({
+      const d = Math.pow(r(), 0.7) * 0.19;
+      return {
         p: new THREE.Vector3(Math.cos(a) * d, 0.1 + r() * 0.17, Math.sin(a) * d * 0.6),
         spin: new THREE.Vector3(r() - 0.5, r() - 0.5, r() - 0.5).normalize(),
         speed: 0.2 + r() * 0.5,
         phase: r() * 10,
+        size: 0,
+      };
+    });
+    let wanted = 0;
+    setMolecules = (n) => (wanted = Math.max(0, Math.min(MAX, Math.round(n))));
+    const m = new THREE.Matrix4();
+    const q = new THREE.Quaternion();
+    const one = new THREE.Vector3(1, 1, 1);
+    const pos = new THREE.Vector3();
+    tick = (dt, time) => {
+      world.orbit.az = 10 + Math.sin(time * 0.2) * 6;
+      steam.update(time, world.camera, 0.6);
+      drift.forEach((d, i) => {
+        const goal = i < wanted ? 1 : 0;
+        d.size = dt >= 1 ? goal : lerp(d.size, goal, 1 - Math.pow(0.02, dt));
+        if (d.size < 0.01) {
+          field.hide(i);
+          return;
+        }
+        pos.copy(d.p);
+        pos.y += Math.sin(time * d.speed + d.phase) * 0.012;
+        q.setFromAxisAngle(d.spin, time * d.speed + d.phase);
+        field.set(i, m.compose(pos, q, one), { size: d.size });
       });
-      shownSize.push(0);
-    }
+    };
   }
 
-  const m = new THREE.Matrix4();
-  const q = new THREE.Quaternion();
-  const one = new THREE.Vector3(1, 1, 1);
-  const pos = new THREE.Vector3();
-  world.onFrame((dt, time) => {
-    world.orbit.az = az + time * cfg.spin + (cfg.sway ? Math.sin(time * 0.2) * cfg.sway : 0);
-    set.steam.update(time, world.camera, field ? 0.6 : 1);
-    if (!field) return;
-    drift.forEach((d, i) => {
-      const goal = i < wanted ? 1 : 0;
-      shownSize[i] = dt >= 1 ? goal : lerp(shownSize[i], goal, 1 - Math.pow(0.02, dt));
-      if (shownSize[i] < 0.01) {
-        field.hide(i);
-        return;
-      }
-      pos.copy(d.p);
-      pos.y += Math.sin(time * d.speed + d.phase) * 0.012;
-      q.setFromAxisAngle(d.spin, time * d.speed + d.phase);
-      m.compose(pos, q, one);
-      field.set(i, m, { size: shownSize[i] });
-    });
-  });
-
+  world.onFrame((dt, time) => tick(dt, time));
   return {
     ...world,
-    /** Science page: how many molecules to show (each stands for ~10 mg of caffeine). */
-    setMolecules(n) {
-      wanted = Math.max(0, Math.min(cfg.molecules || 0, Math.round(n)));
-    },
+    setMolecules: (n) => setMolecules(n),
     renderStill() {
       world.renderOnce();
     },

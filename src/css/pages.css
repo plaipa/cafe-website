@@ -61,11 +61,6 @@
   font-size: 1.15rem;
   font-weight: 500;
 }
-.menu-item__dots {
-  flex: 1;
-  border-bottom: 1px dotted var(--line-strong);
-  transform: translateY(-0.3rem);
-}
 .menu-item p {
   color: var(--ink-2);
   font-weight: 300;
@@ -421,13 +416,10 @@
   align-items: end;
 }
 .meaning__word {
-  font-weight: 100;
-  font-size: clamp(6rem, 3rem + 14vw, 15rem);
-  line-height: 1;
-  color: var(--accent-hi);
-}
-:root[lang='en'] .meaning__word {
-  letter-spacing: -0.06em;
+  font-size: clamp(3.6rem, 1.5rem + 8vw, 10rem);
+  line-height: 0.9;
+  color: var(--accent);
+  text-transform: none !important;
 }
 .meaning dl {
   display: grid;

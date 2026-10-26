@@ -18,9 +18,34 @@
     U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+/* Display serif: Amiri (Persian, classic high-contrast naskh) + Instrument Serif (Latin) */
+@font-face {
+  font-family: 'Display';
+  src: url('../fonts/amiri-arabic.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E,
+    U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+@font-face {
+  font-family: 'Display';
+  src: url('../fonts/instrument-serif-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2212;
+}
+@font-face {
+  font-family: 'Display';
+  src: url('../fonts/instrument-serif-latin-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2212;
+}
+
 /* ───────────── Tokens ───────────── */
 :root {
-  /* warm daylight: cream paper, espresso ink, one caramel accent */
+  /* cream paper, espresso ink, one caramel accent; dark espresso sections use .theme-dark below */
   --bg: #f6efe5;
   --surface: #fbf7f1;
   --line: rgba(42, 28, 18, 0.12);
@@ -36,7 +61,8 @@
   --sleep: #4d6c9c;
 
   --font: 'Estedad', 'Manrope', system-ui, -apple-system, 'Segoe UI', Tahoma, sans-serif;
-  --display-lh: 1.32;
+  --font-display: 'Display', 'Estedad', Georgia, serif;
+  --display-lh: 1.45;
   --display-track: 0;
 
   --gutter: clamp(1.25rem, 4vw, 3.5rem);
@@ -49,8 +75,22 @@
 /* Latin display type can sit tighter; Persian needs room for its tall letters and dots,
    and must never be letter-spaced (it breaks the joins between letters). */
 :root[lang='en'] {
-  --display-lh: 1.04;
-  --display-track: -0.035em;
+  --display-lh: 0.92;
+  --display-track: -0.01em;
+}
+
+/* espresso-dark surfaces (hero sections, loader, header over them) */
+.theme-dark {
+  --bg: #120c08;
+  --surface: #1d140e;
+  --line: rgba(243, 231, 214, 0.12);
+  --line-strong: rgba(243, 231, 214, 0.26);
+  --ink: #f3e7d6;
+  --ink-2: #cdb8a0;
+  --muted: #9c8670;
+  --accent: #d49a5b;
+  --accent-hi: #e9bb83;
+  color: var(--ink);
 }
 
 /* ───────────── Reset ───────────── */
@@ -179,25 +219,34 @@ button {
   font-weight: 500;
 }
 .display {
-  font-weight: 250;
+  font-family: var(--font-display);
+  font-weight: 400;
   line-height: var(--display-lh);
   letter-spacing: var(--display-track);
   text-wrap: balance;
 }
+:root[lang='en'] .display {
+  text-transform: uppercase;
+}
 .display em {
   font-style: normal;
-  color: var(--accent-hi);
+  color: var(--accent);
+}
+:root[lang='en'] .display em {
+  font-style: italic;
+  text-transform: none;
 }
 .h1 {
-  font-size: clamp(2.8rem, 1.2rem + 6vw, 6.8rem);
+  font-size: clamp(3rem, 1rem + 7vw, 8rem);
 }
 .h2 {
-  font-size: clamp(2rem, 1.2rem + 3.2vw, 4.2rem);
+  font-size: clamp(2.4rem, 1.2rem + 4vw, 5.4rem);
 }
 .h3 {
-  font-size: clamp(1.35rem, 1.1rem + 0.8vw, 1.8rem);
-  font-weight: 300;
-  line-height: 1.4;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 1.2rem + 1vw, 2.2rem);
+  font-weight: 400;
+  line-height: 1.2;
 }
 .lead {
   color: var(--ink-2);
@@ -291,7 +340,7 @@ button {
   border-bottom: 1px solid transparent;
 }
 .site-header.is-scrolled {
-  background: rgba(246, 239, 229, 0.8);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
   backdrop-filter: blur(14px);
   border-bottom-color: var(--line);
 }
@@ -315,8 +364,10 @@ button {
   color: var(--accent);
 }
 .brand__name {
-  font-size: 1.12rem;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 400;
+  line-height: 1;
 }
 :root[lang='en'] .brand__name {
   letter-spacing: -0.02em;
@@ -578,6 +629,14 @@ button {
     opacity: 0;
     transform: translateY(1.5rem);
   }
+}
+
+/* dark sections paint their own espresso background */
+.page-hero.theme-dark,
+.section.theme-dark {
+  background:
+    radial-gradient(70% 80% at 30% 40%, #2a1a10 0%, rgba(42, 26, 16, 0) 70%),
+    var(--bg);
 }
 
 /* ───────────── Intro loader ───────────── */

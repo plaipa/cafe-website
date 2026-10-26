@@ -2,90 +2,45 @@
 <html lang="en" dir="ltr">
   <head>
     <!--@include head-->
-    <title>Café Jaan, Tabriz | The power of coffee, within you</title>
-    <meta name="description" content="Café Jaan: specialty coffee in Tabriz, Iran. A 3D journey from the coffee bean to your mind." />
+    <title>Code Concept, Tabriz | The power of coffee, within you</title>
+    <meta name="description" content="Code Concept: specialty coffee in Tabriz, Iran. A 3D journey from the coffee bean to your mind." />
   </head>
   <body class="page-home">
     <!--@include loader-->
     <!--@include header-->
 
     <main id="main">
-      <section class="journey" id="journey" aria-label="Coffee's journey through the body">
+      <section class="journey theme-dark" id="journey" aria-label="The coffee journey: the drop, the extraction, the reward">
         <div class="journey__sticky">
+          <div class="journey__titles">
+            <h1 class="act-title display" id="act-0" data-act="0" data-split-manual>Power in <em>every drop.</em></h1>
+            <h2 class="act-title display" id="act-1" data-act="1" data-split-manual>The <em>extraction.</em></h2>
+            <h2 class="act-title display" id="act-2" data-act="2" data-split-manual>The <em>reward.</em></h2>
+          </div>
           <canvas class="journey__canvas" id="scene" aria-hidden="true"></canvas>
-          <div class="journey__veil" aria-hidden="true"></div>
-
-          <div class="journey__chapters" data-depth="-9">
-            <article class="chapter chapter--intro is-active" data-start="0" data-end="0.1">
-              <p class="eyebrow">Café Jaan · <b>Tabriz</b></p>
-              <h1 class="chapter__title display">The power of coffee, <em>within you.</em></h1>
-              <p class="chapter__text">A small bean, a big spark. Scroll to follow coffee from the cup all the way to your mind.</p>
-              <div class="chapter__actions">
-                <a class="btn btn--solid" href="#after" data-scroll-journey="0.2">
-                  Begin the journey
-                  <svg class="flip-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" /></svg>
-                </a>
-                <a class="link" href="./menu.html">See the menu</a>
-              </div>
+          <div class="journey__chapters" data-depth="-8">
+            <article class="chapter is-active" data-start="0" data-end="0.3" aria-labelledby="act-0">
+              <p class="eyebrow">Section 01 — The drop</p>
+              <p class="chapter__text">Every drop of espresso carries hundreds of aromatic compounds: a small force that switches your day on.</p>
+              <div class="chapter__actions"><a class="btn btn--solid" href="./menu.html">The Code Concept menu <svg class="flip-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" /></svg></a><a class="link" href="#after" data-scroll-journey="0.36">Keep scrolling</a></div>
             </article>
-
-            <article class="chapter" data-start="0.1" data-end="0.31">
-              <p class="eyebrow"><b>01</b> — The bean</p>
-              <h2 class="chapter__title display">It all begins with a seed</h2>
-              <p class="chapter__text">A coffee bean is really the seed of a red cherry. Roasting awakens hundreds of aromatic compounds inside it, the scent that promises a good morning before the first sip.</p>
+            <article class="chapter" data-start="0.36" data-end="0.64" aria-labelledby="act-1">
+              <p class="eyebrow">Section 02 — The extraction</p>
+              <p class="chapter__text">Hot water is pushed through freshly ground coffee at 9 bar, pulling out the bean’s strength and aroma in about 25–30 seconds.</p>
+              <ul class="stats"><li><b>9</b><span>bar of pressure</span></li><li><b>90–96°</b><span>water temperature</span></li><li><b>25–30</b><span>second extraction</span></li></ul>
             </article>
-
-            <article class="chapter" data-start="0.35" data-end="0.5">
-              <p class="eyebrow"><b>02</b> — Aroma</p>
-              <h2 class="chapter__title display">Before the first sip, the scent wakes you</h2>
-              <p class="chapter__text">Steam, warmth and aroma: a simple ritual that starts the day for so many of us. The moment the cup is set in front of you, the mood of the day begins to shift.</p>
-            </article>
-
-            <article class="chapter" data-start="0.6" data-end="0.75">
-              <p class="eyebrow"><b>03</b> — The molecule</p>
-              <h2 class="chapter__title display">The power of coffee fits in one molecule</h2>
-              <p class="chapter__text">Caffeine, C₈H₁₀N₄O₂: twenty-four atoms of carbon, hydrogen, nitrogen and oxygen. This tiny molecule is what travels from the cup into you.</p>
-            </article>
-
-            <article class="chapter" data-start="0.77" data-end="0.91">
-              <p class="eyebrow"><b>04</b> — The spark</p>
-              <h2 class="chapter__title display">Caffeine takes fatigue’s seat</h2>
-              <p class="chapter__text">All day long a molecule called <strong>adenosine</strong> settles onto receptors in your brain and says “I’m tired.” <strong>Caffeine</strong> is shaped much like it, so it takes those seats and turns the volume of fatigue down.</p>
-              <ul class="stats">
-                <li><b>30–60</b><span>minutes to peak effect</span></li>
-                <li><b>≈ 5</b><span>hour half-life in healthy adults</span></li>
-                <li><b>400</b><span>mg a day: upper limit for most healthy adults (FDA)</span></li>
-              </ul>
-            </article>
-
-            <article class="chapter chapter--finale" data-start="0.93" data-end="1.01">
-              <p class="eyebrow"><b>05</b> — You</p>
-              <h2 class="chapter__title display">The power of coffee <em>is this spark.</em></h2>
-              <p class="chapter__text">Coffee isn’t magic. It’s good company. The rest is up to you: energy, focus, and a moment you keep for yourself.</p>
-              <div class="chapter__actions">
-                <a class="btn btn--solid" href="./menu.html">
-                  The Café Jaan menu
-                  <svg class="flip-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" /></svg>
-                </a>
-                <a class="link" href="./science.html">Coffee science, in depth</a>
-              </div>
+            <article class="chapter" data-start="0.72" data-end="1.01" aria-labelledby="act-2">
+              <p class="eyebrow">Section 03 — The reward</p>
+              <p class="chapter__text">Caffeine peaks 30–60 minutes later and takes the place of <strong>adenosine</strong>, the tiredness signal, on your brain’s receptors. That is the power that travels from the cup to you.</p>
+              <ul class="stats"><li><b>30–60</b><span>minutes to peak</span></li><li><b>≈ 5</b><span>hour half-life</span></li><li><b>400</b><span>mg daily limit (FDA)</span></li></ul><div class="chapter__actions"><a class="link" href="./science.html">Coffee science, in depth</a></div>
             </article>
           </div>
-
-          <div class="tag" data-tag="oxygen" data-start="0.7" data-end="0.9"><i></i><span>Oxygen</span></div>
-          <div class="tag" data-tag="nitrogen" data-start="0.72" data-end="0.9"><i></i><span>Nitrogen</span></div>
-          <div class="tag" data-tag="methyl" data-start="0.74" data-end="0.9"><i></i><span>Methyl group · CH₃</span></div>
-
-          <nav class="journey__progress" aria-label="Journey chapters">
-            <button type="button" data-goto="0"><span>Start</span></button>
-            <button type="button" data-goto="0.2"><span>Bean</span></button>
-            <button type="button" data-goto="0.42"><span>Aroma</span></button>
-            <button type="button" data-goto="0.67"><span>Molecule</span></button>
-            <button type="button" data-goto="0.84"><span>Spark</span></button>
-            <button type="button" data-goto="0.97"><span>You</span></button>
-            <i class="journey__bar" aria-hidden="true"></i>
+          <p class="journey__index num" aria-hidden="true"><b id="act-no">01</b> / 03</p>
+          <nav class="journey__progress" aria-label="Journey sections">
+            <button type="button" data-goto="0"><span>The drop</span></button>
+            <button type="button" data-goto="0.5"><span>The extraction</span></button>
+            <button type="button" data-goto="0.88"><span>The reward</span></button>
           </nav>
-
           <div class="scroll-hint" aria-hidden="true">Scroll</div>
         </div>
       </section>

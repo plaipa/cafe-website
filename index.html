@@ -2,90 +2,45 @@
 <html lang="fa" dir="rtl">
   <head>
     <!--@include head-->
-    <title>کافه جان تبریز | قدرتِ قهوه در وجودِ تو</title>
-    <meta name="description" content="کافه جان، قهوهٔ تخصصی در تبریز. سفری سه‌بعدی از دانهٔ قهوه تا ذهنِ تو." />
+    <title>Code Concept تبریز | قدرتِ قهوه در وجودِ تو</title>
+    <meta name="description" content="Code Concept، قهوهٔ تخصصی در تبریز. سفری سه‌بعدی از دانهٔ قهوه تا ذهنِ تو." />
   </head>
   <body class="page-home">
     <!--@include loader-->
     <!--@include header-->
 
     <main id="main">
-      <section class="journey" id="journey" aria-label="سفر قهوه در وجود انسان">
+      <section class="journey theme-dark" id="journey" aria-label="سفرِ قهوه: قطره، عصاره، پاداش">
         <div class="journey__sticky">
+          <div class="journey__titles">
+            <h1 class="act-title display" id="act-0" data-act="0" data-split-manual>نیرو در <em>هر قطره.</em></h1>
+            <h2 class="act-title display" id="act-1" data-act="1" data-split-manual>عصاره‌<em>گیری.</em></h2>
+            <h2 class="act-title display" id="act-2" data-act="2" data-split-manual>پاداش<em>.</em></h2>
+          </div>
           <canvas class="journey__canvas" id="scene" aria-hidden="true"></canvas>
-          <div class="journey__veil" aria-hidden="true"></div>
-
-          <div class="journey__chapters" data-depth="-9">
-            <article class="chapter chapter--intro is-active" data-start="0" data-end="0.1">
-              <p class="eyebrow">کافه جان · <b>تبریز</b></p>
-              <h1 class="chapter__title display">قدرتِ قهوه، <em>در وجودِ تو</em></h1>
-              <p class="chapter__text">یک دانهٔ کوچک، یک جرقهٔ بزرگ. اسکرول کن و همراهِ قهوه از فنجان تا ذهنت سفر کن.</p>
-              <div class="chapter__actions">
-                <a class="btn btn--solid" href="#after" data-scroll-journey="0.2">
-                  شروع سفر
-                  <svg class="flip-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" /></svg>
-                </a>
-                <a class="link" href="./menu.html">دیدن منو</a>
-              </div>
+          <div class="journey__chapters" data-depth="-8">
+            <article class="chapter is-active" data-start="0" data-end="0.3" aria-labelledby="act-0">
+              <p class="eyebrow">بخش ۰۱ — قطره</p>
+              <p class="chapter__text">هر قطرهٔ اسپرسو عصارهٔ صدها ترکیبِ معطر است؛ نیرویی کوچک که روزت را روشن می‌کند.</p>
+              <div class="chapter__actions"><a class="btn btn--solid" href="./menu.html">منوی Code Concept <svg class="flip-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" /></svg></a><a class="link" href="#after" data-scroll-journey="0.36">ادامهٔ سفر</a></div>
             </article>
-
-            <article class="chapter" data-start="0.1" data-end="0.31">
-              <p class="eyebrow"><b>۰۱</b> — دانه</p>
-              <h2 class="chapter__title display">همه‌چیز از یک دانه شروع می‌شود</h2>
-              <p class="chapter__text">دانهٔ قهوه در اصل هستهٔ یک میوهٔ قرمز است. برشته‌کردن، صدها ترکیبِ معطر را در آن بیدار می‌کند؛ همان بویی که پیش از اولین جرعه از یک صبحِ خوب خبر می‌دهد.</p>
+            <article class="chapter" data-start="0.36" data-end="0.64" aria-labelledby="act-1">
+              <p class="eyebrow">بخش ۰۲ — عصاره</p>
+              <p class="chapter__text">آبِ داغ با فشارِ ۹ بار از میانِ قهوهٔ تازه‌آسیاب می‌گذرد و در حدودِ ۲۵ تا ۳۰ ثانیه، قدرت و عطرِ دانه را بیرون می‌کشد.</p>
+              <ul class="stats"><li><b>۹</b><span>بار فشار</span></li><li><b>۹۰–۹۶°</b><span>دمای آب</span></li><li><b>۲۵–۳۰</b><span>ثانیه عصاره‌گیری</span></li></ul>
             </article>
-
-            <article class="chapter" data-start="0.35" data-end="0.5">
-              <p class="eyebrow"><b>۰۲</b> — عطر</p>
-              <h2 class="chapter__title display">پیش از اولین جرعه، بو تو را بیدار می‌کند</h2>
-              <p class="chapter__text">بخار، گرما و عطر؛ آیینی ساده که برای خیلی از ما روز را شروع می‌کند. فنجان که روبه‌رویت قرار می‌گیرد، حال‌وهوای روز همان‌جا عوض می‌شود.</p>
-            </article>
-
-            <article class="chapter" data-start="0.6" data-end="0.75">
-              <p class="eyebrow"><b>۰۳</b> — مولکول</p>
-              <h2 class="chapter__title display">قدرتِ قهوه، در یک مولکول</h2>
-              <p class="chapter__text">کافئین، <bdi dir="ltr">C₈H₁₀N₄O₂</bdi>: بیست‌وچهار اتمِ کربن، هیدروژن، نیتروژن و اکسیژن. همین مولکولِ کوچک است که از فنجان به جانِ تو می‌رسد.</p>
-            </article>
-
-            <article class="chapter" data-start="0.77" data-end="0.91">
-              <p class="eyebrow"><b>۰۴</b> — جرقه</p>
-              <h2 class="chapter__title display">کافئین جای پیامِ خستگی می‌نشیند</h2>
-              <p class="chapter__text">در طول روز مولکولی به نام <strong>آدنوزین</strong> روی گیرنده‌های مغز می‌نشیند و پیامِ «خسته‌ام» را می‌فرستد. <strong>کافئین</strong> شبیهِ آدنوزین است؛ جایش را روی همان گیرنده‌ها می‌گیرد و صدای خستگی را کم می‌کند.</p>
-              <ul class="stats">
-                <li><b>۳۰–۶۰</b><span>دقیقه تا اوجِ اثر</span></li>
-                <li><b>≈ ۵</b><span>ساعت نیمه‌عمر در بزرگسالِ سالم</span></li>
-                <li><b>۴۰۰</b><span>میلی‌گرم؛ سقفِ روزانه برای اغلبِ بزرگسالان (FDA)</span></li>
-              </ul>
-            </article>
-
-            <article class="chapter chapter--finale" data-start="0.93" data-end="1.01">
-              <p class="eyebrow"><b>۰۵</b> — تو</p>
-              <h2 class="chapter__title display">قدرتِ قهوه، <em>همین جرقه است</em></h2>
-              <p class="chapter__text">قهوه جادو نیست؛ همراهی خوب است. باقی‌اش با خودِ توست: انرژی، تمرکز، و لحظه‌ای که برای خودت کنار می‌گذاری.</p>
-              <div class="chapter__actions">
-                <a class="btn btn--solid" href="./menu.html">
-                  منوی کافه جان
-                  <svg class="flip-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" /></svg>
-                </a>
-                <a class="link" href="./science.html">علمِ قهوه، با جزئیات</a>
-              </div>
+            <article class="chapter" data-start="0.72" data-end="1.01" aria-labelledby="act-2">
+              <p class="eyebrow">بخش ۰۳ — پاداش</p>
+              <p class="chapter__text">کافئین ۳۰ تا ۶۰ دقیقه بعد به اوج می‌رسد و جای <strong>آدنوزین</strong>، پیامِ خستگی، را روی گیرنده‌های مغز می‌گیرد. این همان نیرویی است که از فنجان به تو می‌رسد.</p>
+              <ul class="stats"><li><b>۳۰–۶۰</b><span>دقیقه تا اوجِ اثر</span></li><li><b>≈ ۵</b><span>ساعت نیمه‌عمر</span></li><li><b>۴۰۰</b><span>میلی‌گرم سقفِ روزانه (FDA)</span></li></ul><div class="chapter__actions"><a class="link" href="./science.html">علمِ قهوه، با جزئیات</a></div>
             </article>
           </div>
-
-          <div class="tag" data-tag="oxygen" data-start="0.7" data-end="0.9"><i></i><span>اکسیژن</span></div>
-          <div class="tag" data-tag="nitrogen" data-start="0.72" data-end="0.9"><i></i><span>نیتروژن</span></div>
-          <div class="tag" data-tag="methyl" data-start="0.74" data-end="0.9"><i></i><span>گروهِ متیل · <bdi dir="ltr">CH₃</bdi></span></div>
-
-          <nav class="journey__progress" aria-label="فصل‌های سفر">
-            <button type="button" data-goto="0"><span>آغاز</span></button>
-            <button type="button" data-goto="0.2"><span>دانه</span></button>
-            <button type="button" data-goto="0.42"><span>عطر</span></button>
-            <button type="button" data-goto="0.67"><span>مولکول</span></button>
-            <button type="button" data-goto="0.84"><span>جرقه</span></button>
-            <button type="button" data-goto="0.97"><span>تو</span></button>
-            <i class="journey__bar" aria-hidden="true"></i>
+          <p class="journey__index num" aria-hidden="true"><b id="act-no">۰۱</b> / ۰۳</p>
+          <nav class="journey__progress" aria-label="بخش‌های سفر">
+            <button type="button" data-goto="0"><span>قطره</span></button>
+            <button type="button" data-goto="0.5"><span>عصاره</span></button>
+            <button type="button" data-goto="0.88"><span>پاداش</span></button>
           </nav>
-
           <div class="scroll-hint" aria-hidden="true">اسکرول کن</div>
         </div>
       </section>
@@ -144,7 +99,7 @@
 
       <section class="section">
         <div class="container visit">
-          <p class="eyebrow" data-reveal>به کافه جان بیا</p>
+          <p class="eyebrow" data-reveal>به Code Concept بیا</p>
           <h2 class="display h2" data-split>تبریز، خیابان ولیعصر. <em>میزی برایت نگه می‌داریم.</em></h2>
           <div class="visit__row" data-reveal>
             <a class="btn btn--solid" href="./contact.html#reserve">رزرو میز</a>

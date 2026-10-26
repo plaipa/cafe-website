@@ -12,7 +12,7 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const finePointer = matchMedia('(pointer: fine)').matches;
 
 /* ── Language: remember an explicit choice; gently offer English to non-Persian browsers ── */
-const PREF = 'jaan-lang';
+const PREF = 'cc-lang';
 const store = {
   get: () => {
     try {
@@ -61,9 +61,20 @@ if (lang === 'fa' && switchLink) {
 /* ── Header: glass after scrolling; full-screen menu on small screens ── */
 const header = document.getElementById('site-header');
 const toggle = document.querySelector('.nav-toggle');
-const syncHeader = () => header?.classList.toggle('is-scrolled', scrollY > 24);
+// the header takes the colours of whatever section is passing underneath it
+const darkSections = [...document.querySelectorAll('.theme-dark:not(.loader)')];
+const syncHeader = () => {
+  header?.classList.toggle('is-scrolled', scrollY > 24);
+  const probe = (header?.offsetHeight || 72) / 2;
+  const overDark = darkSections.some((s) => {
+    const r = s.getBoundingClientRect();
+    return r.top <= probe && r.bottom > probe;
+  });
+  header?.classList.toggle('theme-dark', overDark);
+};
 syncHeader();
 addEventListener('scroll', syncHeader, { passive: true });
+addEventListener('resize', syncHeader);
 
 function setNav(open) {
   if (toggle) {
@@ -107,7 +118,8 @@ function splitWords(el) {
   };
   walk(el);
 }
-if (!reduceMotion) document.querySelectorAll('[data-split]').forEach(splitWords);
+// [data-split] reveals on scroll; [data-split-manual] is revealed by page code (e.g. the home acts)
+if (!reduceMotion) document.querySelectorAll('[data-split], [data-split-manual]').forEach(splitWords);
 
 /* ── Reveal on scroll ── */
 export function observeReveals(scope = document) {

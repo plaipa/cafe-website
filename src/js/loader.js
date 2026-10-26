@@ -71,7 +71,7 @@ if (!active) {
         el.classList.add('is-out');
         finish();
         try {
-          sessionStorage.setItem('jaan-seen', '1');
+          sessionStorage.setItem('cc-seen', '1');
         } catch {
           /* private mode */
         }
