@@ -1,8 +1,11 @@
 import '../css/base.css';
 import '../css/components.css';
+import { hold, ready } from './loader.js';
+import { initParallax } from './parallax.js';
 
 const root = document.documentElement;
 root.classList.add('js');
+if (document.fonts) hold(document.fonts.ready);
 
 const lang = root.lang === 'en' ? 'en' : 'fa';
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -125,7 +128,11 @@ export function observeReveals(scope = document) {
   );
   els.forEach((el) => io.observe(el));
 }
-observeReveals();
+// opening animations wait for the intro loader to lift
+ready.then(() => {
+  observeReveals();
+  initParallax();
+});
 
 /* ── Magnetic buttons: a small pull toward the cursor ── */
 if (finePointer && !reduceMotion) {

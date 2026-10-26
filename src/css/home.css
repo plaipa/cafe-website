@@ -10,7 +10,13 @@
   height: 100vh;
   height: 100svh;
   overflow: hidden;
-  background: var(--bg);
+  /* soft window light falling on a cream table */
+  background:
+    radial-gradient(60% 70% at var(--light-x, 30%) 38%, #fffaf2 0%, rgba(255, 250, 242, 0) 70%),
+    linear-gradient(to bottom, var(--bg) 55%, #eadcca);
+}
+:root[dir='ltr'] .journey__sticky {
+  --light-x: 70%;
 }
 .journey__canvas {
   position: absolute;
@@ -29,8 +35,8 @@
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(var(--side), rgba(11, 8, 6, 0.85) 0%, rgba(11, 8, 6, 0.45) 30%, transparent 55%),
-    linear-gradient(to bottom, rgba(11, 8, 6, 0.6), transparent 16%, transparent 80%, rgba(11, 8, 6, 0.85));
+    linear-gradient(var(--side), rgba(246, 239, 229, 0.85) 0%, rgba(246, 239, 229, 0.4) 30%, transparent 52%),
+    linear-gradient(to bottom, rgba(246, 239, 229, 0.7), transparent 14%);
 }
 :root[dir='ltr'] .journey__veil {
   --side: to right;
@@ -62,6 +68,10 @@
 }
 .chapter.is-active {
   pointer-events: auto;
+}
+.js:not(.loaded) .chapter.is-active > * {
+  opacity: 0;
+  transform: translateY(1.6rem);
 }
 .chapter.is-active > * {
   opacity: 1;
@@ -122,7 +132,7 @@
   color: var(--ink-2);
 }
 
-/* DOM tags pinned to points on the 3D figure */
+/* DOM labels pinned to atoms of the 3D molecule */
 .tag {
   position: absolute;
   left: 0;
@@ -138,61 +148,45 @@
 }
 .tag i {
   position: absolute;
-  left: -4px;
-  top: -4px;
-  width: 8px;
-  height: 8px;
+  left: -3px;
+  top: -3px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: var(--sleep);
-  box-shadow: 0 0 14px var(--sleep);
-}
-.tag--warm i {
-  background: var(--ember);
-  box-shadow: 0 0 14px var(--ember);
+  background: var(--ink);
 }
 .tag i::after {
   content: '';
   position: absolute;
-  inset: -7px;
+  inset: -6px;
   border-radius: 50%;
-  border: 1px solid var(--sleep);
-  animation: ping 2.2s ease-out infinite;
-}
-.tag--warm i::after {
-  border-color: var(--ember);
+  border: 1px solid var(--ink);
+  animation: ping 2.4s ease-out infinite;
 }
 @keyframes ping {
-  from { transform: scale(0.5); opacity: 1; }
-  to { transform: scale(2.2); opacity: 0; }
+  from { transform: scale(0.5); opacity: 0.8; }
+  to { transform: scale(2); opacity: 0; }
 }
-/* labels point away from the figure, into empty space; .tag--in points towards the copy instead */
+/* labels sit on the side away from the copy, at the end of a short leader line */
 .tag span {
   position: absolute;
-  inset-inline-start: 46px;
-  top: -0.8rem;
+  inset-inline-start: 52px;
+  top: -0.85rem;
   white-space: nowrap;
   font-size: 0.8rem;
   font-weight: 500;
   color: var(--ink);
   padding-block: 0.2rem;
-  border-bottom: 1px solid currentColor;
 }
 .tag span::before {
   content: '';
   position: absolute;
-  inset-inline-start: -42px;
-  bottom: -1px;
+  inset-inline-start: -46px;
+  top: 50%;
   width: 40px;
   height: 1px;
-  background: currentColor;
-}
-.tag--in span {
-  inset-inline-start: auto;
-  inset-inline-end: 46px;
-}
-.tag--in span::before {
-  inset-inline-start: auto;
-  inset-inline-end: -42px;
+  background: var(--ink);
+  opacity: 0.5;
 }
 
 /* chapter navigation */
@@ -252,7 +246,7 @@
 .journey__progress button.is-on::before {
   border-color: var(--accent);
   background: var(--accent);
-  box-shadow: 0 0 0 4px rgba(232, 162, 89, 0.18);
+  box-shadow: 0 0 0 4px rgba(176, 96, 42, 0.18);
 }
 .journey__progress button:hover {
   color: var(--ink);
@@ -412,8 +406,8 @@ html:not(.js) .chapter > * {
   }
   .journey__veil {
     background:
-      linear-gradient(to top, rgba(11, 8, 6, 0.97) 0%, rgba(11, 8, 6, 0.8) 38%, transparent 60%),
-      linear-gradient(to bottom, rgba(11, 8, 6, 0.6), transparent 14%);
+      linear-gradient(to top, rgba(246, 239, 229, 0.97) 0%, rgba(246, 239, 229, 0.85) 38%, transparent 60%),
+      linear-gradient(to bottom, rgba(246, 239, 229, 0.7), transparent 14%);
   }
   .chapter {
     width: 100%;

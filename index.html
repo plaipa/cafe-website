@@ -6,6 +6,7 @@
     <meta name="description" content="کافه جان، قهوهٔ تخصصی در تبریز. سفری سه‌بعدی از دانهٔ قهوه تا ذهنِ تو." />
   </head>
   <body class="page-home">
+    <!--@include loader-->
     <!--@include header-->
 
     <main id="main">
@@ -14,7 +15,7 @@
           <canvas class="journey__canvas" id="scene" aria-hidden="true"></canvas>
           <div class="journey__veil" aria-hidden="true"></div>
 
-          <div class="journey__chapters">
+          <div class="journey__chapters" data-depth="-9">
             <article class="chapter chapter--intro is-active" data-start="0" data-end="0.1">
               <p class="eyebrow">کافه جان · <b>تبریز</b></p>
               <h1 class="chapter__title display">قدرتِ قهوه، <em>در وجودِ تو</em></h1>
@@ -40,16 +41,16 @@
               <p class="chapter__text">بخار، گرما و عطر؛ آیینی ساده که برای خیلی از ما روز را شروع می‌کند. فنجان که روبه‌رویت قرار می‌گیرد، حال‌وهوای روز همان‌جا عوض می‌شود.</p>
             </article>
 
-            <article class="chapter" data-start="0.63" data-end="0.75">
-              <p class="eyebrow"><b>۰۳</b> — خستگی</p>
-              <h2 class="chapter__title display">در مغز، خستگی یک پیامِ شیمیایی است</h2>
-              <p class="chapter__text">در طول روز مولکولی به نام <strong>آدنوزین</strong> روی گیرنده‌های مغز می‌نشیند و پیامِ «خسته‌ام» را می‌فرستد. هرچه بیدارتر بمانی، این پیام بلندتر می‌شود.</p>
+            <article class="chapter" data-start="0.6" data-end="0.75">
+              <p class="eyebrow"><b>۰۳</b> — مولکول</p>
+              <h2 class="chapter__title display">قدرتِ قهوه، در یک مولکول</h2>
+              <p class="chapter__text">کافئین، <bdi dir="ltr">C₈H₁₀N₄O₂</bdi>: بیست‌وچهار اتمِ کربن، هیدروژن، نیتروژن و اکسیژن. همین مولکولِ کوچک است که از فنجان به جانِ تو می‌رسد.</p>
             </article>
 
             <article class="chapter" data-start="0.77" data-end="0.91">
               <p class="eyebrow"><b>۰۴</b> — جرقه</p>
-              <h2 class="chapter__title display">کافئین جای آن پیام می‌نشیند</h2>
-              <p class="chapter__text">ساختار <strong>کافئین</strong> شبیهِ آدنوزین است؛ روی همان گیرنده‌ها می‌نشیند و صدای خستگی را کم می‌کند. نتیجه، هشیاری بیشتر و ذهنی است که زودتر روشن می‌شود.</p>
+              <h2 class="chapter__title display">کافئین جای پیامِ خستگی می‌نشیند</h2>
+              <p class="chapter__text">در طول روز مولکولی به نام <strong>آدنوزین</strong> روی گیرنده‌های مغز می‌نشیند و پیامِ «خسته‌ام» را می‌فرستد. <strong>کافئین</strong> شبیهِ آدنوزین است؛ جایش را روی همان گیرنده‌ها می‌گیرد و صدای خستگی را کم می‌کند.</p>
               <ul class="stats">
                 <li><b>۳۰–۶۰</b><span>دقیقه تا اوجِ اثر</span></li>
                 <li><b>≈ ۵</b><span>ساعت نیمه‌عمر در بزرگسالِ سالم</span></li>
@@ -71,16 +72,15 @@
             </article>
           </div>
 
-          <div class="tag" data-tag="adenosine" data-start="0.64" data-end="0.75"><i></i><span>آدنوزین · «خسته‌ام»</span></div>
-          <div class="tag tag--warm" data-tag="caffeine" data-start="0.79" data-end="0.92"><i></i><span>کافئین · گیرنده بسته شد</span></div>
-          <div class="tag tag--warm tag--in" data-tag="cortex" data-start="0.83" data-end="0.97"><i></i><span>قشر پیش‌پیشانی · تمرکز</span></div>
-          <div class="tag tag--warm" data-tag="nerves" data-start="0.9" data-end="1.02"><i></i><span>اعصاب · انرژی تا نوک انگشت</span></div>
+          <div class="tag" data-tag="oxygen" data-start="0.7" data-end="0.9"><i></i><span>اکسیژن</span></div>
+          <div class="tag" data-tag="nitrogen" data-start="0.72" data-end="0.9"><i></i><span>نیتروژن</span></div>
+          <div class="tag" data-tag="methyl" data-start="0.74" data-end="0.9"><i></i><span>گروهِ متیل · <bdi dir="ltr">CH₃</bdi></span></div>
 
           <nav class="journey__progress" aria-label="فصل‌های سفر">
             <button type="button" data-goto="0"><span>آغاز</span></button>
             <button type="button" data-goto="0.2"><span>دانه</span></button>
             <button type="button" data-goto="0.42"><span>عطر</span></button>
-            <button type="button" data-goto="0.69"><span>خستگی</span></button>
+            <button type="button" data-goto="0.67"><span>مولکول</span></button>
             <button type="button" data-goto="0.84"><span>جرقه</span></button>
             <button type="button" data-goto="0.97"><span>تو</span></button>
             <i class="journey__bar" aria-hidden="true"></i>
@@ -93,8 +93,8 @@
       <section class="section" id="after">
         <div class="container intro-block">
           <p class="eyebrow" data-reveal>فلسفهٔ ما</p>
-          <p class="statement" data-split>در تبریز، چای و گفت‌وگو همیشه کنار هم بوده‌اند. ما قهوه را به همین سنت اضافه کرده‌ایم؛ <em>آرام، دقیق و بی‌عجله.</em></p>
-          <ul class="pillars">
+          <p class="statement" data-split data-parallax="0.05">در تبریز، چای و گفت‌وگو همیشه کنار هم بوده‌اند. ما قهوه را به همین سنت اضافه کرده‌ایم؛ <em>آرام، دقیق و بی‌عجله.</em></p>
+          <ul class="pillars" data-parallax="0.1">
             <li data-reveal><b>۰۱</b><h3>برشتهٔ تازه</h3><p>دانه‌ها در دسته‌های کوچک و نزدیک به زمانِ مصرف انتخاب می‌شوند.</p></li>
             <li data-reveal style="--d: 0.1s"><b>۰۲</b><h3>دمِ دقیق</h3><p>وزن، دما و زمان؛ هر فنجان با همین سه عدد تکرارپذیر است.</p></li>
             <li data-reveal style="--d: 0.2s"><b>۰۳</b><h3>نشستنِ بی‌عجله</h3><p>اینجا میز برای ماندن است، نه برای رد شدن.</p></li>
@@ -127,17 +127,17 @@
             <p class="lead" data-reveal>منحنیِ تعاملیِ ما نشان می‌دهد هر نوشیدنی چقدر در بدنت می‌ماند و تا وقتِ خواب چقدر از آن باقی است.</p>
             <a class="btn" href="./science.html" data-reveal>امتحانش کن</a>
           </div>
-          <svg class="teaser__curve" data-reveal viewBox="0 0 400 220" fill="none" aria-hidden="true">
+          <svg class="teaser__curve" data-reveal data-parallax="-0.08" viewBox="0 0 400 220" fill="none" aria-hidden="true">
             <defs>
               <linearGradient id="tc" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0" stop-color="#e8a259" stop-opacity=".22" />
-                <stop offset="1" stop-color="#e8a259" stop-opacity="0" />
+                <stop offset="0" stop-color="#b0602a" stop-opacity=".18" />
+                <stop offset="1" stop-color="#b0602a" stop-opacity="0" />
               </linearGradient>
             </defs>
-            <path d="M0 200.5H400" stroke="rgba(240,230,216,.18)" />
+            <path d="M0 200.5H400" stroke="rgba(42,28,18,.18)" />
             <path class="fill" d="M10 200 C 46 200 58 40 100 36 C 160 32 210 130 390 182 L390 200 L10 200Z" fill="url(#tc)" />
-            <path class="line" d="M10 200 C 46 200 58 40 100 36 C 160 32 210 130 390 182" stroke="#f4c58b" stroke-width="1.5" stroke-linecap="round" />
-            <circle class="peak" cx="100" cy="36" r="4.5" fill="#e8a259" />
+            <path class="line" d="M10 200 C 46 200 58 40 100 36 C 160 32 210 130 390 182" stroke="#96501f" stroke-width="1.5" stroke-linecap="round" />
+            <circle class="peak" cx="100" cy="36" r="4.5" fill="#b0602a" />
           </svg>
         </div>
       </section>

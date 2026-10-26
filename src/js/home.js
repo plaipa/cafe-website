@@ -1,7 +1,7 @@
 import './main.js';
 import '../css/home.css';
-import { HEAD_BRAIN } from './scene/shapes.js';
-import { canWebGL, pickQuality } from './scene/mount.js';
+import { canWebGL, pickQuality, wire } from './scene/mount.js';
+import { hold } from './loader.js';
 
 const root = document.documentElement;
 const journey = document.getElementById('journey');
@@ -15,16 +15,6 @@ const hint = document.querySelector('.scroll-hint');
 const params = new URLSearchParams(location.search);
 const forced = params.has('p') ? Number(params.get('p')) : null; // ?p=0.8 pins the story (handy for screenshots)
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-/* Anchor points on the 3D figure (local space) that the DOM tags follow. */
-const [bx, by] = HEAD_BRAIN;
-const ANCHORS = {
-  adenosine: [bx - 0.6, by + 0.3, 0.3],
-  caffeine: [bx - 0.68, by - 0.05, 0.3],
-  cortex: [0.62, by + 0.4, 0.2],
-  nerves: [-0.42, -1.55, 0.9],
-};
-
 
 function journeyProgress() {
   if (forced !== null) return forced;
@@ -46,7 +36,7 @@ document.querySelectorAll('[data-scroll-journey]').forEach((a) =>
   })
 );
 
-/* Text chapters + tags react to progress; this is cheap DOM work and runs on every scroll tick. */
+/* Text chapters react to progress; cheap DOM work on every scroll tick. */
 function syncUI(p) {
   for (const c of chapters) {
     const on = p >= Number(c.dataset.start) && p < Number(c.dataset.end);
@@ -60,63 +50,52 @@ function syncUI(p) {
   hint.classList.toggle('is-hidden', p > 0.02);
 }
 
-function start() {
-  const quality = params.get('q') || pickQuality();
+// the copy follows the scroll on its own, even before (or without) the 3D scene
+const syncNow = () => syncUI(journeyProgress());
+syncNow();
+addEventListener('scroll', syncNow, { passive: true });
 
-  let story;
-  return import('./scene/story.js')
-    .then(({ createStory }) => {
-      story = createStory({ canvas, quality, mirror: document.documentElement.dir === 'ltr' });
-    })
-    .then(() => {
-      root.classList.add('webgl');
-      const tick = () => {
-        const p = journeyProgress();
-        story.setProgress(p);
-        syncUI(p);
-      };
-      tick();
-      story.renderStill(forced ?? journeyProgress());
-      addEventListener('scroll', tick, { passive: true });
-      addEventListener('resize', tick);
+async function start() {
+  const [{ createJourney }, { CAFFEINE }] = await Promise.all([import('./scene/scenes.js'), import('./scene/molecule.js')]);
+  const story = await createJourney({
+    canvas,
+    quality: pickQuality(),
+    side: root.dir === 'ltr' ? 1 : -1, // the scene sits opposite the copy
+  });
+  root.classList.add('webgl');
 
-      if (!reduceMotion) {
-        addEventListener(
-          'pointermove',
-          (e) => story.setPointer((e.clientX / innerWidth) * 2 - 1, -((e.clientY / innerHeight) * 2 - 1)),
-          { passive: true }
-        );
-      }
+  const tick = () => {
+    const p = journeyProgress();
+    story.setProgress(p);
+    syncUI(p);
+  };
+  tick();
+  story.renderStill(journeyProgress());
+  addEventListener('scroll', tick, { passive: true });
+  addEventListener('resize', tick);
+  wire(journey, story);
+  document.addEventListener('visibilitychange', () => !document.hidden && tick());
 
-      // only spend GPU time while the journey is on screen
-      const io = new IntersectionObserver(([entry]) => (entry.isIntersecting ? story.start() : story.stop()), {
-        rootMargin: '200px 0px',
-      });
-      io.observe(journey);
-      story.reveal();
-      document.addEventListener('visibilitychange', () => (document.hidden ? story.stop() : tick()));
-
-      // DOM tags track their 3D anchor points
-      const place = () => {
-        const p = journeyProgress();
-        for (const t of tags) {
-          const on = p >= Number(t.dataset.start) && p < Number(t.dataset.end);
-          t.hidden = false;
-          t.classList.toggle('is-on', on);
-          if (!on) continue;
-          const pt = story.project(ANCHORS[t.dataset.tag]);
-          t.style.transform = `translate(${pt.x.toFixed(1)}px, ${pt.y.toFixed(1)}px)`;
-        }
-        requestAnimationFrame(place);
-      };
-      requestAnimationFrame(place);
-    });
+  // labels pinned to real atoms of the caffeine molecule
+  const atomOf = { oxygen: CAFFEINE.marks.O6, nitrogen: CAFFEINE.marks.N7, methyl: CAFFEINE.marks.methyl };
+  const place = () => {
+    const p = journeyProgress();
+    for (const t of tags) {
+      const on = p >= Number(t.dataset.start) && p < Number(t.dataset.end);
+      t.classList.toggle('is-on', on);
+      if (!on) continue;
+      const pt = story.atomOnScreen(atomOf[t.dataset.tag]);
+      t.style.transform = `translate(${pt.x.toFixed(1)}px, ${pt.y.toFixed(1)}px)`;
+    }
+    requestAnimationFrame(place);
+  };
+  requestAnimationFrame(place);
 }
 
 if (!canWebGL()) {
   root.classList.add('no-webgl');
 } else {
-  start().catch((err) => {
+  hold(start()).catch((err) => {
     console.error('3D story failed, falling back to static layout', err);
     root.classList.add('no-webgl');
   });

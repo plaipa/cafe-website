@@ -4,7 +4,7 @@
   top: var(--header-h);
   z-index: 5;
   padding-block: 1rem;
-  background: rgba(11, 8, 6, 0.82);
+  background: rgba(246, 239, 229, 0.88);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--line);
 }
@@ -111,8 +111,10 @@
   height: 100%;
   opacity: 0;
   transition: opacity 1.4s;
-  -webkit-mask-image: radial-gradient(closest-side, #000 72%, transparent);
-  mask-image: radial-gradient(closest-side, #000 72%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent), linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent), linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+  mask-composite: intersect;
 }
 .lab__scene.is-ready canvas {
   opacity: 1;
@@ -120,7 +122,7 @@
 .lab__meter {
   position: absolute;
   inset-inline: 0;
-  bottom: 0.5rem;
+  top: 0.5rem;
   text-align: center;
   font-size: 0.82rem;
   color: var(--muted);

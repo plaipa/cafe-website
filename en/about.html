@@ -6,22 +6,23 @@
     <meta name="description" content="Café Jaan: specialty coffee in Tabriz, inspired by the city's historic bazaar and by what the word jaan means in Persian and Azerbaijani Turkish." />
   </head>
   <body class="page-about">
+    <!--@include loader-->
     <!--@include header-->
     <main id="main">
       <section class="page-hero">
         <div class="container page-hero__grid">
-          <div class="page-hero__copy">
+          <div class="page-hero__copy" data-parallax="0.1" data-depth="6">
             <p class="eyebrow" data-reveal>Our story</p>
             <h1 class="display h1" data-split>A place where <em>the spirit wakes up</em></h1>
             <p class="lead" data-reveal style="--d: 0.3s">Café Jaan began with a simple idea: good coffee, in a city that has always known how to welcome a guest.</p>
           </div>
-          <div class="hero-scene" data-scene="bean" aria-hidden="true"><canvas></canvas></div>
+          <div class="hero-scene" data-parallax="-0.05" data-scene="still" aria-hidden="true"><canvas></canvas></div>
         </div>
       </section>
 
       <section class="section">
         <div class="container meaning">
-          <p class="meaning__word" data-reveal>Jaan</p>
+          <p class="meaning__word" data-reveal data-parallax="0.15">Jaan</p>
           <dl>
             <div data-reveal><dt>In Persian</dt><dd><i lang="fa">Jaan</i> means soul and life: the force that keeps a person going.</dd></div>
             <div data-reveal style="--d: 0.1s"><dt>In Azerbaijani Turkish</dt><dd><i lang="az">Can</i> means both soul and dear. It’s the word people in the alleys of Tabriz use to call you close.</dd></div>

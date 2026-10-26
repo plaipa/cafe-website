@@ -6,13 +6,14 @@
     <meta name="description" content="When does your coffee's caffeine peak, and how much is left at bedtime? An interactive caffeine curve and a 3D brain that lights up with it." />
   </head>
   <body class="page-science">
+    <!--@include loader-->
     <!--@include header-->
     <main id="main">
       <section class="page-hero page-hero--text">
-        <div class="container page-hero__copy">
+        <div class="container page-hero__copy" data-parallax="0.1" data-depth="6">
           <p class="eyebrow" data-reveal>Coffee science</p>
           <h1 class="display h1" data-split>One cup <em>stays with you</em> for hours</h1>
-          <p class="lead" data-reveal style="--d: 0.3s">Pick a drink and a time to see when caffeine peaks and how much is still there at bedtime. The brain beside the chart lights up and dims with the caffeine level.</p>
+          <p class="lead" data-reveal style="--d: 0.3s">Pick a drink and a time to see when caffeine peaks and how much is still there at bedtime. Beside the chart, each 3D molecule stands for about 10 mg of caffeine; they come and go as the curve rises and falls.</p>
         </div>
       </section>
 
@@ -67,7 +68,7 @@
             </details>
           </div>
 
-          <div class="lab__scene" data-scene="head" aria-hidden="true">
+          <div class="lab__scene" data-scene="molecules" aria-hidden="true">
             <canvas></canvas>
             <p class="lab__meter" id="lab-meter"></p>
           </div>

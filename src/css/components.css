@@ -49,8 +49,10 @@
   height: 100%;
   opacity: 0;
   transition: opacity 1.6s ease;
-  -webkit-mask-image: radial-gradient(closest-side, #000 70%, transparent);
-  mask-image: radial-gradient(closest-side, #000 70%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent), linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent), linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+  mask-composite: intersect;
 }
 .hero-scene.is-ready canvas {
   opacity: 1;
@@ -117,7 +119,7 @@
   border-inline-end: 0;
 }
 .card:hover {
-  background: rgba(240, 230, 216, 0.025);
+  background: rgba(255, 255, 255, 0.45);
 }
 .card__index {
   font-size: 0.8rem;
