@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <!--@include head-->
+    <title>تماس و رزرو | کافه جان تبریز</title>
+    <meta name="description" content="نشانی، ساعت کار و رزرو میز در کافه جان، تبریز." />
+  </head>
+  <body class="page-contact">
+    <!--@include header-->
+    <main id="main">
+      <section class="page-hero page-hero--text">
+        <div class="container page-hero__copy">
+          <p class="eyebrow" data-reveal>تماس و رزرو</p>
+          <h1 class="display h1" data-split>سر بزن، <em>بنشین.</em></h1>
+          <p class="lead" data-reveal style="--d: 0.3s">برای آمدن نیازی به رزرو نیست؛ ولی اگر با جمع می‌آیی یا میزِ کنارِ پنجره را می‌خواهی، خبرمان کن.</p>
+        </div>
+      </section>
+
+      <section class="section" style="padding-top: 2rem">
+        <div class="container contact">
+          <dl class="info">
+            <div data-reveal><dt>نشانی</dt><dd>تبریز، خیابان ولیعصر</dd></div>
+            <div data-reveal style="--d: 0.08s"><dt>ساعت کار</dt><dd>شنبه تا پنجشنبه · ۸:۰۰ تا ۲۳:۳۰<br />جمعه · ۹:۰۰ تا ۲۴:۰۰</dd></div>
+            <div data-reveal style="--d: 0.16s"><dt>تلفن</dt><dd><a class="link" href="tel:+984133000000"><bdi>۰۴۱ ۳۳۰۰ ۰۰۰۰</bdi></a></dd></div>
+            <div data-reveal style="--d: 0.24s"><dt>زبان</dt><dd>فارسی · ترکی آذربایجانی · English</dd></div>
+          </dl>
+
+          <div id="reserve">
+            <h2 class="display h3" data-reveal style="margin-bottom: 2rem">درخواستِ رزرو</h2>
+            <form class="form" id="reserve-form" novalidate data-reveal>
+              <label class="full">نام<input name="name" autocomplete="name" required /></label>
+              <label>تلفن<input name="phone" type="tel" autocomplete="tel" inputmode="tel" required dir="ltr" /></label>
+              <label>تعداد نفرات
+                <select name="guests">
+                  <option>۱</option><option selected>۲</option><option>۳</option><option>۴</option><option>۵</option><option>۶</option><option>۷</option><option>۸+</option>
+                </select>
+              </label>
+              <label>تاریخ<input name="date" type="date" required /></label>
+              <label>ساعت<select name="time" id="time-select"></select></label>
+              <label class="full">توضیحات (اختیاری)<textarea name="note" rows="2"></textarea></label>
+              <div class="form__actions">
+                <button class="btn btn--solid" type="submit">ثبت درخواست</button>
+                <span class="form__hint">رزرو پس از تماسِ ما قطعی می‌شود.</span>
+              </div>
+            </form>
+            <div class="form-done" id="reserve-done" hidden tabindex="-1"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!--@include footer-->
+    <script type="module" src="/src/js/contact.js"></script>
+  </body>
+</html>
