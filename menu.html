@@ -2,42 +2,36 @@
 <html lang="fa" dir="rtl">
   <head>
     <!--@include head-->
-    <title>منو | Code Concept تبریز</title>
-    <meta name="description" content="منوی Code Concept تبریز: اسپرسو، دم‌آوری دستی، نوشیدنی‌های سرد، چای تبریزی و شیرینی‌های محلی؛ با نشانگر کافئینِ هر نوشیدنی." />
+    <title>منوی آناتومیک | STRATA تبریز</title>
+    <meta name="description" content="منوی استراتا: هر نوشیدنی به‌صورت برشی از لیوان، با لایه‌ها و مقدارِ دقیقِ هر کدام." />
   </head>
   <body class="page-menu">
     <!--@include loader-->
     <!--@include header-->
     <main id="main">
-      <section class="page-hero">
-        <div class="container page-hero__grid">
-          <div class="page-hero__copy" data-parallax="0.1" data-depth="6">
-            <p class="eyebrow" data-reveal>منو</p>
-            <h1 class="display h1" data-split>هر فنجان، <em>اندازه‌ای از انرژی</em></h1>
-            <p class="lead" data-reveal style="--d: 0.3s">کنار هر نوشیدنی یک نشانگرِ کافئین گذاشته‌ایم تا بدانی چه سفارش می‌دهی؛ از دمنوشِ بی‌کافئین تا کلدبروی پرقدرت.</p>
+      <header class="page-head container">
+        <p class="kicker" data-reveal>منو <span aria-hidden="true">—</span> شمارهٔ ۰۱</p>
+        <h1 class="display h1" data-split>آناتومیِ <em>هر نوشیدنی.</em></h1>
+        <p class="lead" data-reveal style="--d: 0.25s">چهارده نوشیدنی، هر کدام برشی از همان لیوان. لایه‌ها را بخوان، مقدارها را ببین، و لیوان را برای هر کدام از نو بساز.</p>
+      </header>
+
+      <div class="container menu-layout">
+        <aside class="menu-stage" aria-label="لیوانِ سه‌بعدی">
+          <div class="menu-stage__inner">
+            <div class="stage" data-scene="menu"><canvas data-bg="#e7e0d4" aria-hidden="true"></canvas></div>
+            <div class="menu-stage__caption">
+              <p><span class="kicker">در لیوان</span> <b data-current-name>لاته</b></p>
+              <button class="link" type="button" data-explode aria-pressed="false">نمای انفجاری</button>
+            </div>
           </div>
-          <div class="hero-scene" data-parallax="-0.05" data-scene="cup" aria-hidden="true"><canvas></canvas></div>
-        </div>
-        <span class="scroll-cue">منو را ببین</span>
-      </section>
+        </aside>
 
-      <div class="menu-bar">
-        <div class="container">
+        <div class="menu-list">
           <div class="chips" role="group" aria-label="دسته‌بندی منو"><!--@render menuFilters--></div>
-          <span class="menu-bar__note">مقدار کافئین تقریبی است</span>
+          <!--@render menu-->
+          <p class="menu-note muted">مقدارها برای لیوانِ ۲۴۰ میلی‌لیتریِ خانه است. شیرِ گیاهی (جو دوسر، بادام) برای هر نوشیدنیِ شیری در دسترس است.</p>
         </div>
       </div>
-
-      <div class="container menu-groups">
-        <!--@render menu-->
-      </div>
-
-      <section class="section" style="padding-top: 0">
-        <div class="container visit">
-          <h2 class="display h2" data-split>نمی‌دانی چه بنوشی؟ <em>از باریستا بپرس.</em></h2>
-          <a class="btn btn--solid" href="./contact.html#reserve" data-reveal>رزرو میز <svg class="flip-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" /></svg></a>
-        </div>
-      </section>
     </main>
     <!--@include footer-->
     <script type="module" src="/src/js/menu.js"></script>

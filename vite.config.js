@@ -4,7 +4,7 @@ import { basename, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const root = import.meta.dirname;
-const pages = ['index', 'menu', 'science', 'about', 'contact'];
+const pages = ['index', 'menu', 'about', 'contact'];
 const langs = { fa: '', en: 'en/' }; // Persian is the default and lives at the root
 
 const read = (name) => readFileSync(resolve(root, 'partials', `${name}.html`), 'utf8');

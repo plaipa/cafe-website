@@ -27,8 +27,8 @@ const done = document.getElementById('reserve-done');
 const timeSelect = document.getElementById('time-select');
 const pad = new Intl.NumberFormat(lang === 'fa' ? 'fa-IR' : 'en-US', { minimumIntegerDigits: 2, useGrouping: false });
 
-// opening hours: 8:00 to 23:00, every half hour
-for (let h = 8; h <= 23; h += 0.5) {
+// opening hours: 8:00 to 21:30, every half hour (we close at 22)
+for (let h = 8; h <= 21.5; h += 0.5) {
   const label = `${pad.format(Math.floor(h))}:${pad.format(h % 1 ? 30 : 0)}`;
   timeSelect.add(new Option(label, label, h === 18, h === 18));
 }

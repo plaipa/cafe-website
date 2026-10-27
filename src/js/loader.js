@@ -1,5 +1,5 @@
-/* Intro loader: a cup fills with coffee as the page's fonts and 3D assets arrive,
-   then lifts like a curtain. Shown once per session; later pages open straight away. */
+/* Intro loader: a glass fills layer by layer (espresso, crema, milk, foam) as the page's fonts
+   and 3D scene arrive, then lifts like a curtain. Shown once per session; later pages open straight away. */
 
 const root = document.documentElement;
 const el = document.getElementById('loader');
@@ -71,7 +71,7 @@ if (!active) {
         el.classList.add('is-out');
         finish();
         try {
-          sessionStorage.setItem('cc-seen', '1');
+          sessionStorage.setItem('st-seen', '1');
         } catch {
           /* private mode */
         }

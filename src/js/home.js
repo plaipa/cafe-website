@@ -11,6 +11,8 @@ const tags = [...document.querySelectorAll('.tag')];
 const bar = document.querySelector('.journey__bar');
 const stops = [...document.querySelectorAll('[data-goto]')];
 const hint = document.querySelector('.scroll-hint');
+const timers = [...document.querySelectorAll('[data-timer]')];
+const nf = new Intl.NumberFormat(root.lang === 'en' ? 'en-US' : 'fa-IR');
 
 const params = new URLSearchParams(location.search);
 const forced = params.has('p') ? Number(params.get('p')) : null; // ?p=0.8 pins the story (handy for screenshots)
@@ -32,43 +34,56 @@ stops.forEach((b) => b.addEventListener('click', () => scrollToProgress(Number(b
 document.querySelectorAll('[data-scroll-journey]').forEach((a) =>
   a.addEventListener('click', (e) => {
     e.preventDefault();
-    scrollToProgress(Number(a.dataset.scrollJourney) + 0.02);
+    scrollToProgress(Number(a.dataset.scrollJourney));
   })
 );
 
-/* Text chapters react to progress; cheap DOM work that runs with or without the 3D scene. */
+/* Text chapters, the progress folio and the shot timer follow scroll; plain DOM work that runs with or without 3D. */
 function syncUI(p) {
   for (const c of chapters) {
     const on = p >= Number(c.dataset.start) && p < Number(c.dataset.end);
     c.classList.toggle('is-active', on);
     c.toggleAttribute('inert', !on);
   }
-  const active = stops.reduce((acc, s, i) => (p >= Number(s.dataset.goto) - 0.06 ? i : acc), 0);
+  const active = stops.reduce((acc, s, i) => (p >= Number(s.dataset.goto) - 0.05 ? i : acc), 0);
   stops.forEach((s, i) => {
     s.classList.toggle('is-on', i === active);
     s.toggleAttribute('aria-current', i === active);
   });
-  bar?.style.setProperty('--fill', String(active / (stops.length - 1)));
+  bar?.style.setProperty('--fill', String(Math.min(1, p / 0.9)));
   hint?.classList.toggle('is-hidden', p > 0.02);
+  for (const t of timers) {
+    const k = Math.min(1, Math.max(0, (p - t.dataset.from) / (t.dataset.to - t.dataset.from)));
+    t.textContent = nf.format(Math.round(k * Number(t.dataset.max)));
+  }
 }
 const syncNow = () => syncUI(journeyProgress());
 syncNow();
 addEventListener('scroll', syncNow, { passive: true });
 
 async function start() {
-  const [{ createJourney }, { CAFFEINE }] = await Promise.all([import('./scene/scenes.js'), import('./scene/molecule.js')]);
+  const { createJourney } = await import('./scene/story.js');
   const story = await createJourney({
     canvas,
     quality: pickQuality(),
-    side: root.dir === 'ltr' ? 1 : -1, // the set sits opposite the copy
+    side: root.dir === 'ltr' ? 1 : -1, // copy on the left in English, on the right in Persian
   });
   root.classList.add('webgl');
 
-  const tick = () => story.setProgress(journeyProgress());
+  // the page takes the colour of the spread on screen, so the header and the
+  // edges of the canvas always match the backdrop
+  const paint = (p) => root.style.setProperty('--bg', story.backgroundAt(p));
+  const tick = () => {
+    const p = journeyProgress();
+    story.setProgress(p);
+    paint(p);
+  };
   tick();
   story.renderStill(journeyProgress());
   addEventListener('scroll', tick, { passive: true });
   addEventListener('resize', tick);
+  // past the story the page is paper again
+  new IntersectionObserver(([e]) => !e.isIntersecting && root.style.removeProperty('--bg')).observe(journey);
 
   // only spend GPU time while the journey is on screen
   new IntersectionObserver(([entry]) => (entry.isIntersecting ? story.start() : story.stop()), {
@@ -83,20 +98,20 @@ async function start() {
     );
   }
 
-  // labels pinned to real atoms of the caffeine molecule
-  const atomOf = { oxygen: CAFFEINE.marks.O6, nitrogen: CAFFEINE.marks.N7, methyl: CAFFEINE.marks.methyl };
+  // hairline labels pinned to each layer of the exploded glass
   const place = () => {
     const p = journeyProgress();
     for (const t of tags) {
       const on = p >= Number(t.dataset.start) && p < Number(t.dataset.end);
       t.classList.toggle('is-on', on);
       if (!on) continue;
-      const pt = story.atomOnScreen(atomOf[t.dataset.tag]);
+      const pt = story.labelOnScreen(Number(t.dataset.layer));
       t.style.transform = `translate(${pt.x.toFixed(1)}px, ${pt.y.toFixed(1)}px)`;
     }
     requestAnimationFrame(place);
   };
   ready.then(() => requestAnimationFrame(place));
+  if (forced !== null) window.__ready = true;
 }
 
 if (!canWebGL()) {

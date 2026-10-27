@@ -10,14 +10,16 @@ export function canWebGL() {
   }
 }
 
-/** Phones, touch devices and low-core machines get fewer particles and no bloom. */
+/** Phones, touch devices and low-core machines get a lighter renderer (resolution, shadows, transmission). */
 export function pickQuality() {
+  const forced = new URLSearchParams(location.search).get('q');
+  if (forced === 'low' || forced === 'high') return forced;
   const weak = innerWidth < 760 || matchMedia('(pointer: coarse)').matches || (navigator.hardwareConcurrency || 8) <= 4;
   return weak ? 'low' : 'high';
 }
 
 /**
- * Mount an inner-page vignette ('cup' | 'still' | 'molecules') into `host`
+ * Mount an inner-page vignette ('menu' | 'about') into `host`
  * (an element containing a <canvas>). Renders only while visible; follows the pointer.
  * Resolves to the scene, or null without WebGL.
  */
@@ -29,7 +31,7 @@ export async function mountScene(host, preset) {
   }
   // the intro loader waits for the scene and its assets
   const scene = await hold(
-    import('./scenes.js').then(({ createVignette }) => createVignette({ canvas, quality: pickQuality(), preset }))
+    import('./story.js').then(({ createVignette }) => createVignette({ canvas, quality: pickQuality(), preset }))
   );
   scene.renderStill();
   host.classList.add('is-ready');

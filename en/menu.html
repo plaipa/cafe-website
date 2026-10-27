@@ -2,42 +2,36 @@
 <html lang="en" dir="ltr">
   <head>
     <!--@include head-->
-    <title>Menu | Code Concept, Tabriz</title>
-    <meta name="description" content="The Code Concept menu: espresso, hand brews, cold drinks, Tabriz tea and local sweets, with a caffeine meter on every drink." />
+    <title>The anatomical menu | STRATA Tabriz</title>
+    <meta name="description" content="The STRATA menu: every drink drawn as a cross-section of the glass, with its layers and exact amounts." />
   </head>
   <body class="page-menu">
     <!--@include loader-->
     <!--@include header-->
     <main id="main">
-      <section class="page-hero">
-        <div class="container page-hero__grid">
-          <div class="page-hero__copy" data-parallax="0.1" data-depth="6">
-            <p class="eyebrow" data-reveal>Menu</p>
-            <h1 class="display h1" data-split>Every cup, <em>its own dose of energy.</em></h1>
-            <p class="lead" data-reveal style="--d: 0.3s">Every drink carries a caffeine meter, so you know what you’re ordering, from a caffeine-free infusion to a full-strength cold brew.</p>
+      <header class="page-head container">
+        <p class="kicker" data-reveal>Menu <span aria-hidden="true">—</span> Issue 01</p>
+        <h1 class="display h1" data-split>The anatomy <em>of every drink.</em></h1>
+        <p class="lead" data-reveal style="--d: 0.25s">Fourteen drinks, each a section through the same glass. Read the layers, see the amounts, and build the glass again for any of them.</p>
+      </header>
+
+      <div class="container menu-layout">
+        <aside class="menu-stage" aria-label="The 3D glass">
+          <div class="menu-stage__inner">
+            <div class="stage" data-scene="menu"><canvas data-bg="#e7e0d4" aria-hidden="true"></canvas></div>
+            <div class="menu-stage__caption">
+              <p><span class="kicker">In the glass</span> <b data-current-name>Latte</b></p>
+              <button class="link" type="button" data-explode aria-pressed="false">Exploded view</button>
+            </div>
           </div>
-          <div class="hero-scene" data-parallax="-0.05" data-scene="cup" aria-hidden="true"><canvas></canvas></div>
-        </div>
-        <span class="scroll-cue">See the menu</span>
-      </section>
+        </aside>
 
-      <div class="menu-bar">
-        <div class="container">
+        <div class="menu-list">
           <div class="chips" role="group" aria-label="Menu categories"><!--@render menuFilters--></div>
-          <span class="menu-bar__note">Caffeine values are approximate</span>
+          <!--@render menu-->
+          <p class="menu-note muted">Amounts are for the house 240 ml glass. Oat or almond milk is available for any milk drink.</p>
         </div>
       </div>
-
-      <div class="container menu-groups">
-        <!--@render menu-->
-      </div>
-
-      <section class="section" style="padding-top: 0">
-        <div class="container visit">
-          <h2 class="display h2" data-split>Not sure what to drink? <em>Ask the barista.</em></h2>
-          <a class="btn btn--solid" href="./contact.html#reserve" data-reveal>Book a table <svg class="flip-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" /></svg></a>
-        </div>
-      </section>
     </main>
     <!--@include footer-->
     <script type="module" src="/src/js/menu.js"></script>

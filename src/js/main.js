@@ -1,5 +1,4 @@
 import '../css/base.css';
-import '../css/components.css';
 import { hold, ready } from './loader.js';
 import { initParallax } from './parallax.js';
 
@@ -12,7 +11,7 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const finePointer = matchMedia('(pointer: fine)').matches;
 
 /* ── Language: remember an explicit choice; gently offer English to non-Persian browsers ── */
-const PREF = 'cc-lang';
+const PREF = 'st-lang';
 const store = {
   get: () => {
     try {

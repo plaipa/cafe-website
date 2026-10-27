@@ -1,16 +1,18 @@
 <div class="loader" id="loader" aria-hidden="true">
   <div class="loader__inner">
-    <svg class="loader__cup" viewBox="0 0 120 120" fill="none">
+    <svg class="loader__glass" viewBox="0 0 74 104">
       <defs>
-        <clipPath id="loader-cup-inside"><path d="M30 50h52v14c0 15-11.6 26-26 26S30 79 30 64V50z" /></clipPath>
+        <clipPath id="loader-inside"><path d="M8.6 6 15 95h44l6.4-89z" /></clipPath>
       </defs>
-      <rect class="loader__coffee" clip-path="url(#loader-cup-inside)" x="26" y="50" width="60" height="44" />
-      <path class="loader__draw" d="M30 50h52v14c0 15-11.6 26-26 26S30 79 30 64V50z" />
-      <path class="loader__draw" d="M82 55h5a8 8 0 0 1 0 16h-6" />
-      <path class="loader__draw" d="M22 98h68" />
-      <path class="loader__steam" d="M47 42c-4-5 4-8 0-14M60 42c-4-5 4-8 0-14M73 42c-4-5 4-8 0-14" />
+      <g clip-path="url(#loader-inside)">
+        <rect class="loader__layer" style="--from: 0; --span: 0.35" x="0" y="74" width="74" height="21" fill="#2b160c" />
+        <rect class="loader__layer" style="--from: 0.35; --span: 0.1" x="0" y="71" width="74" height="3" fill="#b07a45" />
+        <rect class="loader__layer" style="--from: 0.45; --span: 0.4" x="0" y="31" width="74" height="40" fill="#f3ede3" />
+        <rect class="loader__layer" style="--from: 0.85; --span: 0.15" x="0" y="22" width="74" height="9" fill="#fbf8f2" />
+      </g>
+      <path class="loader__outline" d="M6 2h62l-7 96H13z" />
     </svg>
-    <p class="loader__brand">{{brand}}</p>
-    <p class="loader__pct num"><span id="loader-pct">0</span>%</p>
+    <p class="loader__brand">STRATA</p>
+    <p class="loader__pct num">{{loading}} · <span id="loader-pct">0</span>%</p>
   </div>
 </div>
