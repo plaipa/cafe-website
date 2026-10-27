@@ -2,50 +2,63 @@
 <html lang="en" dir="ltr">
   <head>
     <!--@include head-->
-    <title>Contact & booking | Code Concept, Tabriz</title>
-    <meta name="description" content="Address, opening hours and table booking at Code Concept, Tabriz." />
+    <title>Visit & book | STRATA Tabriz</title>
+    <meta name="description" content="Address, opening hours and table booking at STRATA, Tabriz." />
   </head>
   <body class="page-contact">
     <!--@include loader-->
     <!--@include header-->
     <main id="main">
-      <section class="page-hero page-hero--text">
-        <div class="container page-hero__copy" data-parallax="0.1" data-depth="6">
-          <p class="eyebrow" data-reveal>Contact & booking</p>
-          <h1 class="display h1" data-split>Drop by. <em>Stay a while.</em></h1>
-          <p class="lead" data-reveal style="--d: 0.3s">You don’t need a booking to visit. But if you’re coming as a group, or want the table by the window, let us know.</p>
-        </div>
-      </section>
+      <header class="page-head container">
+        <p class="kicker" data-reveal>Visit <span aria-hidden="true">—</span> Issue 01</p>
+        <h1 class="display h1" data-split>Come in, sit, <em>look closer.</em></h1>
+        <p class="lead" data-reveal style="--d: 0.25s">You don’t need a booking to visit. But if you’re coming as a group, or want a seat at the counter to watch the layers being built, let us know.</p>
+      </header>
 
-      <section class="section" style="padding-top: 2rem">
-        <div class="container contact">
+      <section class="container contact">
+        <div class="contact__info">
           <dl class="info">
-            <div data-reveal><dt>Address</dt><dd>Valiasr St., Tabriz, Iran</dd></div>
-            <div data-reveal style="--d: 0.08s"><dt>Hours</dt><dd>Sat–Thu · 8:00–23:30<br />Fri · 9:00–24:00</dd></div>
-            <div data-reveal style="--d: 0.16s"><dt>Phone</dt><dd><a class="link" href="tel:+984133000000">+98 41 3300 0000</a></dd></div>
-            <div data-reveal style="--d: 0.24s"><dt>We speak</dt><dd>Persian · Azerbaijani Turkish · English</dd></div>
+            <div data-reveal style="--d: 0.00s"><dt class="kicker">Address</dt><dd>2nd Alley, Abresan St., Tabriz</dd></div>
+            <div data-reveal style="--d: 0.08s"><dt class="kicker">Hours</dt><dd>Sat–Thu · 8–22<br />Fri · 10–22</dd></div>
+            <div data-reveal style="--d: 0.16s"><dt class="kicker">Phone</dt><dd><a class="link" href="tel:+984133000000"><bdi>+98 41 3300 0000</bdi></a></dd></div>
+            <div data-reveal style="--d: 0.24s"><dt class="kicker">Languages</dt><dd>Persian · Azerbaijani Turkish · English</dd></div>
           </dl>
+          <figure class="map-fig" data-reveal>
+          <svg class="map" viewBox="0 0 400 300" role="img" aria-label="A simplified map of the streets around the café">
+            <g class="map__streets">
+              <path d="M-10 210 C 90 196, 190 180, 410 120" />
+              <path d="M120 -10 L 150 310" />
+              <path d="M260 -10 C 250 90, 262 200, 300 310" />
+              <path d="M-10 70 L 410 40" />
+            </g>
+            <g class="map__alleys"><path d="M150 188 L 210 300" /><path d="M200 182 L 186 60" /></g>
+            <text class="map__label" x="18" y="234" transform="rotate(-6 18 234)">Abresan St.</text>
+            <circle class="map__pin" cx="196" cy="214" r="6" />
+            <circle class="map__ring" cx="196" cy="214" r="16" />
+          </svg>
+            <figcaption><span class="kicker">Fig. 2</span> Second alley, a few steps off Abresan.</figcaption>
+          </figure>
+        </div>
 
-          <div id="reserve">
-            <h2 class="display h3" data-reveal style="margin-bottom: 2rem">Request a table</h2>
-            <form class="form" id="reserve-form" novalidate data-reveal>
-              <label class="full">Name<input name="name" autocomplete="name" required /></label>
-              <label>Phone<input name="phone" type="tel" autocomplete="tel" inputmode="tel" required /></label>
-              <label>Guests
-                <select name="guests">
-                  <option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8+</option>
-                </select>
-              </label>
-              <label>Date<input name="date" type="date" required /></label>
-              <label>Time<select name="time" id="time-select"></select></label>
-              <label class="full">Notes (optional)<textarea name="note" rows="2"></textarea></label>
-              <div class="form__actions">
-                <button class="btn btn--solid" type="submit">Send request</button>
-                <span class="form__hint">Your booking is confirmed once we call you back.</span>
-              </div>
-            </form>
-            <div class="form-done" id="reserve-done" hidden tabindex="-1"></div>
-          </div>
+        <div id="reserve" class="contact__form">
+          <h2 class="display h3" data-reveal>Booking request</h2>
+          <form class="form" id="reserve-form" novalidate data-reveal>
+            <label class="full">Name<input name="name" autocomplete="name" required /></label>
+            <label>Phone<input name="phone" type="tel" autocomplete="tel" inputmode="tel" required dir="ltr" /></label>
+            <label>Guests
+              <select name="guests">
+                <option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8+</option>
+              </select>
+            </label>
+            <label>Date<input name="date" type="date" required /></label>
+            <label>Time<select name="time" id="time-select"></select></label>
+            <label class="full">Notes (optional)<textarea name="note" rows="2"></textarea></label>
+            <div class="form__actions">
+              <button class="btn btn--solid" type="submit">Send request</button>
+              <span class="form__hint">Your booking is confirmed once we call you back.</span>
+            </div>
+          </form>
+          <div class="form-done" id="reserve-done" hidden tabindex="-1"></div>
         </div>
       </section>
     </main>
