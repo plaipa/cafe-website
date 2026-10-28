@@ -1,31 +1,34 @@
 import { observeReveals } from './main.js';
 import '../css/pages.css';
-import { mountScene } from './scene/mount.js';
+import { crossSection } from '../../partials/render.js';
+import { glass, kinds } from '../../partials/menu-data.js';
+
+/* The large drawing beside the list is redrawn as whichever drink is on show;
+   its layers pour in from the bottom up, and can be pulled apart. */
 
 const drinks = [...document.querySelectorAll('.drink')];
+const figure = document.querySelector('[data-figure]');
 const nameEl = document.querySelector('[data-current-name]');
 const explodeBtn = document.querySelector('[data-explode]');
-let scene = null;
 let current = null;
 
-/** Build `el`'s drink in the 3D glass and mark it as the one on show. */
+/** Draw `el`'s drink in the large figure and mark it as the one on show. */
 function show(el) {
   if (!el || el === current) return;
   current = el;
+  const name = el.querySelector('.drink__name').firstChild.textContent.trim();
   drinks.forEach((d) => d.classList.toggle('is-current', d === el));
-  nameEl.textContent = el.querySelector('.drink__name').firstChild.textContent.trim();
-  scene?.setDrink(JSON.parse(el.dataset.layers));
+  nameEl.textContent = name;
+  figure.innerHTML = crossSection(JSON.parse(el.dataset.layers), { glass, kinds }, { label: name });
+  // restart the pour
+  figure.classList.remove('is-pouring');
+  void figure.offsetWidth;
+  figure.classList.add('is-pouring');
 }
 
-mountScene(document.querySelector('[data-scene]'), 'menu').then((s) => {
-  scene = s;
-  const start = document.getElementById(location.hash.slice(1)) || drinks.find((d) => d.dataset.drink === 'latte');
-  current = null;
-  show(start);
-  s?.renderStill();
-});
+show(document.getElementById(location.hash.slice(1)) || drinks.find((d) => d.dataset.drink === 'latte'));
 
-// whichever drink crosses the middle of the screen is built in the glass
+// whichever drink crosses the middle of the screen is drawn
 const io = new IntersectionObserver(
   (entries) => {
     const hit = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
@@ -42,7 +45,7 @@ drinks.forEach((d) => {
 explodeBtn.addEventListener('click', () => {
   const on = explodeBtn.getAttribute('aria-pressed') !== 'true';
   explodeBtn.setAttribute('aria-pressed', String(on));
-  scene?.setExplode(on ? 1 : 0);
+  figure.classList.toggle('is-exploded', on);
 });
 
 /* Category filter: fade groups out, swap, fade the survivors back in */

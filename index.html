@@ -3,110 +3,95 @@
   <head>
     <!--@include head-->
     <title>STRATA تبریز | هر فنجان، چند لایه است</title>
-    <meta name="description" content="استراتا، کافه‌ای مفهومی در تبریز. یک لاته را لایه‌به‌لایه باز می‌کنیم: لیوان، اسپرسو، کرما، شیر و فوم." />
+    <meta name="description" content="استراتا، کافه‌ای مفهومی در تبریز. یک آیس‌لاته را لایه‌به‌لایه باز می‌کنیم: لیوان، اسپرسو، یخ، شیر و فوم." />
   </head>
   <body class="page-home">
     <!--@include loader-->
     <!--@include header-->
 
     <main id="main">
-      <section class="journey" id="journey" aria-label="آناتومیِ یک لاته">
+      <section class="journey" id="journey" aria-label="آناتومیِ یک آیس‌لاته">
         <div class="journey__sticky">
-          <canvas class="journey__canvas" id="scene" aria-hidden="true"></canvas>
+          <figure class="plate" aria-hidden="true">
+            <canvas class="plate__photo" id="pour" data-frames="./pour/" data-count="136"></canvas>
+            <div class="plate__drawing"><!--@render anatomy--></div>
+            <figcaption class="plate__caption"><span class="kicker">شکل ۱</span><span class="plate__credit">ویدیو: Mixkit</span></figcaption>
+          </figure>
 
-          <div class="journey__chapters">
-            <article class="chapter chapter--cover is-active" data-start="0" data-end="0.1">
-              <p class="kicker">STRATA <span aria-hidden="true">—</span> شمارهٔ ۰۱ <span aria-hidden="true">—</span> تبریز</p>
-              <h1 class="chapter__title display">هر فنجان، <em>چند لایه است.</em></h1>
-              <p class="chapter__text">یک لاته را جلوی چشمت باز می‌کنیم تا ببینی در آن چه می‌گذرد: از لیوانِ خالی تا قلبی که روی فوم می‌نشیند.</p>
-              <div class="chapter__actions">
-                <a class="btn btn--solid" href="#after" data-scroll-journey="0.14">
-                  باز کردنِ فنجان
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" /></svg>
-                </a>
-                <a class="link" href="./menu.html">منوی آناتومیک</a>
-              </div>
-            </article>
+          <div class="journey__page">
+            <p class="masthead" aria-hidden="true">STRATA</p>
+            <div class="journey__chapters">
+              <article class="chapter chapter--cover is-active" data-start="0" data-end="0.08">
+                <p class="kicker">STRATA <span aria-hidden="true">—</span> شمارهٔ ۰۱ <span aria-hidden="true">—</span> تبریز</p>
+                <h1 class="chapter__title display">هر فنجان، <em>چند لایه است.</em></h1>
+                <p class="chapter__text">یک آیس‌لاتهٔ استراتا را از نزدیک ببین: اسپرسو، یخ، شیرِ سرد، و فومی که آخر از همه می‌نشیند.</p>
+                <div class="chapter__actions">
+                  <a class="btn btn--solid" href="#after" data-scroll-journey="0.2">
+                    باز کردنِ فنجان
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" /></svg>
+                  </a>
+                  <a class="link" href="./menu.html">منوی آناتومیک</a>
+                </div>
+              </article>
 
-            <article class="chapter" data-start="0.11" data-end="0.21">
-              <p class="kicker"><b>۰۱</b> لیوان</p>
-              <h2 class="chapter__title display">همه‌چیز از یک ظرفِ شفاف شروع می‌شود</h2>
-              <p class="chapter__text">لیوانِ ما شیشه‌ای ساده است با کفی ضخیم و دیواره‌ای فقط ۲٫۲ میلی‌متری؛ آن‌قدر نازک که هیچ لایه‌ای پشتش پنهان نمی‌ماند.</p>
-              <dl class="specs">
-                <div><dt>گنجایش</dt><dd class="num">۲۴۰<small>ml</small></dd></div>
-                <div><dt>ارتفاع</dt><dd class="num">۱۱۸<small>mm</small></dd></div>
-              </dl>
-            </article>
-
-            <article class="chapter" data-start="0.23" data-end="0.41">
-              <p class="kicker"><b>۰۲</b> اسپرسو و کرما</p>
-              <h2 class="chapter__title display">بیست‌وهشت ثانیه؛ پایهٔ همه‌چیز</h2>
-              <p class="chapter__text">۱۸ گرم قهوهٔ تازه‌آسیاب، آبِ ۹۳ درجه با فشارِ ۹ بار. در ۲۸ ثانیه ۳۶ گرم اسپرسو می‌چکد و کرمای طلایی روی آن می‌نشیند.</p>
-              <dl class="specs specs--4">
+              <article class="chapter" data-start="0.1" data-end="0.3">
+                <p class="kicker"><b>۰۱</b> اسپرسو</p>
+                <h2 class="chapter__title display">همه‌چیز از ۳۶ گرم شروع می‌شود</h2>
+                <p class="chapter__text">۱۸ گرم قهوهٔ تازه‌آسیاب، آبِ ۹۳ درجه با فشارِ ۹ بار. در ۲۸ ثانیه ۳۶ گرم اسپرسو روی یخ می‌چکد؛ پایه‌ای تیره که بقیهٔ لایه‌ها روی آن ساخته می‌شوند.</p>
+                <dl class="specs specs--4">
                 <div><dt>قهوه</dt><dd class="num">۱۸<small>g</small></dd></div>
                 <div><dt>اسپرسو</dt><dd class="num">۳۶<small>g</small></dd></div>
                 <div><dt>دمای آب</dt><dd class="num">۹۳<small>°C</small></dd></div>
-                <div><dt>زمان</dt><dd class="num"><span data-timer data-from="0.22" data-to="0.34" data-max="28">۰</span><small>s</small></dd></div>
+                <div><dt>زمان</dt><dd class="num"><span data-timer data-from="0.1" data-to="0.28" data-max="28">۰</span><small>s</small></dd></div>
               </dl>
-            </article>
+              </article>
 
-            <article class="chapter" data-start="0.43" data-end="0.58">
-              <p class="kicker"><b>۰۳</b> شیر</p>
-              <h2 class="chapter__title display">شیر، تا ۶۵ درجه و نه بیشتر</h2>
-              <p class="chapter__text">بالاتر از ۶۵ درجه، قندِ شیر می‌سوزد و شیرینی‌اش از دست می‌رود. ما با دماسنج بخار می‌دهیم، نه با حدس؛ و شیر را آرام روی اسپرسو می‌ریزیم تا لایه‌ها به هم نریزند.</p>
-              <dl class="specs">
-                <div><dt>دما</dt><dd class="num">۶۵<small>°C</small></dd></div>
-                <div><dt>حجم</dt><dd class="num">۱۴۰<small>ml</small></dd></div>
+              <article class="chapter" data-start="0.32" data-end="0.53">
+                <p class="kicker"><b>۰۲</b> یخ و شیر</p>
+                <h2 class="chapter__title display">شیرِ سرد، آرام، از روی یخ</h2>
+                <p class="chapter__text">شیر را از روی یخ می‌ریزیم تا سرعتش بشکند و روی اسپرسو بنشیند، نه این‌که با آن قاطی شود. لایه‌ها همین‌طور جدا می‌مانند و تو مرزشان را می‌بینی.</p>
+                <dl class="specs">
+                <div><dt>دما</dt><dd class="num">۴<small>°C</small></dd></div>
+                <div><dt>حجم</dt><dd class="num">۱۲۰<small>ml</small></dd></div>
               </dl>
-            </article>
+              </article>
 
-            <article class="chapter" data-start="0.59" data-end="0.71">
-              <p class="kicker"><b>۰۴</b> فوم</p>
-              <h2 class="chapter__title display">هشت میلی‌متر، و یک قلب</h2>
-              <p class="chapter__text">میکروفوم یعنی حباب‌هایی آن‌قدر ریز که دیده نمی‌شوند. همین لایهٔ نازک است که طرحِ روی فنجان را ممکن می‌کند.</p>
-              <dl class="specs">
-                <div><dt>ضخامت</dt><dd class="num">۸<small>mm</small></dd></div>
-                <div><dt>حجم</dt><dd class="num">۲۲<small>ml</small></dd></div>
+              <article class="chapter" data-start="0.55" data-end="0.7">
+                <p class="kicker"><b>۰۳</b> فوم</p>
+                <h2 class="chapter__title display">و در آخر، سبک‌ترین لایه</h2>
+                <p class="chapter__text">فومِ سرد روی همه می‌نشیند. هر جرعه از میانش می‌گذرد: اول نرمیِ شیر، بعد تلخیِ اسپرسو.</p>
+                <dl class="specs">
+                <div><dt>حجم</dt><dd class="num">۱۵<small>ml</small></dd></div>
+                <div><dt>ضخامت</dt><dd class="num">۱<small>cm</small></dd></div>
               </dl>
-            </article>
+              </article>
 
-            <article class="chapter chapter--anatomy" data-start="0.74" data-end="0.91">
-              <p class="kicker"><b>۰۵</b> آناتومی</p>
-              <h2 class="chapter__title display">حالا همه را جدا از هم ببین</h2>
-              <p class="chapter__text">پنج جزء، هر کدام با عدد و دلیلِ خودش. یک لاته همین است؛ نه بیشتر، نه کمتر.</p>
-            </article>
+              <article class="chapter" data-start="0.73" data-end="0.91">
+                <p class="kicker"><b>۰۴</b> آناتومی</p>
+                <h2 class="chapter__title display">حالا همه را جدا از هم ببین</h2>
+                <p class="chapter__text">پنج جزء، هر کدام با عدد و دلیلِ خودش. یک آیس‌لاته همین است؛ نه بیشتر، نه کمتر.</p>
+              </article>
 
-            <article class="chapter chapter--finale" data-start="0.93" data-end="1.01">
-              <p class="kicker"><b>۰۶</b> فنجانِ تو</p>
-              <h2 class="chapter__title display">ساده به نظر می‌رسد. <em>نیست.</em></h2>
-              <p class="chapter__text">هر نوشیدنیِ منوی استراتا همین‌طور ساخته می‌شود: لایه‌به‌لایه، با عدد و با حوصله.</p>
-              <div class="chapter__actions">
-                <a class="btn btn--solid" href="./menu.html">
-                  منوی آناتومیک
-                  <svg class="flip-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-                </a>
-                <a class="link" href="./about.html">مانیفستِ ما</a>
-              </div>
-            </article>
-          </div>
+              <article class="chapter chapter--finale" data-start="0.93" data-end="1.01">
+                <p class="kicker"><b>۰۵</b> فنجانِ تو</p>
+                <h2 class="chapter__title display">ساده به نظر می‌رسد. <em>نیست.</em></h2>
+                <p class="chapter__text">هر نوشیدنیِ منوی استراتا همین‌طور ساخته می‌شود: لایه‌به‌لایه، با عدد و با حوصله.</p>
+                <div class="chapter__actions">
+                  <a class="btn btn--solid" href="./menu.html">منوی آناتومیک <svg class="flip-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg></a>
+                  <a class="link" href="./about.html">مانیفستِ ما</a>
+                </div>
+              </article>
+            </div>
 
-          <!-- labels pinned to the exploded glass -->
-          <div class="tag" data-layer="3" data-start="0.79" data-end="0.9"><i></i><span><b>فوم</b> ۸ میلی‌متر</span></div>
-          <div class="tag" data-layer="2" data-start="0.795" data-end="0.9"><i></i><span><b>شیر</b> ۱۴۰ میلی‌لیتر</span></div>
-          <div class="tag" data-layer="1" data-start="0.8" data-end="0.9"><i></i><span><b>کرما</b> ۲ میلی‌متر</span></div>
-          <div class="tag" data-layer="0" data-start="0.805" data-end="0.9"><i></i><span><b>اسپرسو</b> ۳۶ گرم</span></div>
-          <div class="tag" data-layer="-1" data-start="0.81" data-end="0.9"><i></i><span><b>لیوان</b> ۲۴۰ میلی‌لیتر</span></div>
-
-          <nav class="journey__progress" aria-label="فصل‌ها">
-            <div class="journey__bar" aria-hidden="true"></div>
+            <nav class="journey__progress" aria-label="فصل‌ها">
+              <div class="journey__bar" aria-hidden="true"></div>
             <button type="button" data-goto="0"><b class="num">۰۰</b><span>جلد</span></button>
-            <button type="button" data-goto="0.15"><b class="num">۰۱</b><span>لیوان</span></button>
-            <button type="button" data-goto="0.33"><b class="num">۰۲</b><span>اسپرسو</span></button>
-            <button type="button" data-goto="0.51"><b class="num">۰۳</b><span>شیر</span></button>
-            <button type="button" data-goto="0.66"><b class="num">۰۴</b><span>فوم</span></button>
-            <button type="button" data-goto="0.84"><b class="num">۰۵</b><span>آناتومی</span></button>
-          </nav>
-          <p class="scroll-hint" aria-hidden="true">اسکرول</p>
+            <button type="button" data-goto="0.2"><b class="num">۰۱</b><span>اسپرسو</span></button>
+            <button type="button" data-goto="0.42"><b class="num">۰۲</b><span>شیر</span></button>
+            <button type="button" data-goto="0.62"><b class="num">۰۳</b><span>فوم</span></button>
+            <button type="button" data-goto="0.82"><b class="num">۰۴</b><span>آناتومی</span></button>
+            </nav>
+          </div>
         </div>
       </section>
 
