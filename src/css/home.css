@@ -1,7 +1,9 @@
-/* ═════════════ the 3D story: one glass, opened chapter by chapter ═════════════ */
+/* ═════════════ the story: a magazine spread ═════════════
+   One half is a photographic plate (a real pour, scrubbed by scroll, that turns into a
+   technical drawing); the other half is the page, with the chapter copy. */
 .journey {
   position: relative;
-  height: 820vh;
+  height: 760vh;
   z-index: 2;
 }
 .journey__sticky {
@@ -9,40 +11,153 @@
   top: 0;
   height: 100vh;
   height: 100svh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   overflow: hidden;
   background: var(--bg);
 }
-.journey__canvas {
+
+/* the plate sits on the far side from the copy: left in Persian, right in English */
+.plate {
+  position: relative;
+  margin: var(--header-h) 0 0; /* the header always sits on paper */
+  order: 2;
+  background: #2a2420;
+  overflow: hidden;
+}
+.plate__photo {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  opacity: 0;
-  transition: opacity 1.4s ease;
+  opacity: var(--photo, 1);
+  transition: filter 0.6s;
 }
-.webgl .journey__canvas {
-  opacity: 1;
+.js:not(.frames-ready) .plate__photo {
+  filter: blur(14px);
 }
-
-.journey__chapters {
+.plate__drawing {
   position: absolute;
   inset: 0;
-  width: min(100% - 2 * var(--gutter), var(--max));
-  margin-inline: auto;
-  pointer-events: none;
+  background: var(--bg);
+  opacity: calc(1 - var(--photo, 1));
+}
+.anatomy {
+  position: absolute;
+  inset: 1.5rem 1.5rem 3rem;
+  width: calc(100% - 3rem);
+  height: calc(100% - 4.5rem);
+  overflow: visible;
+  direction: ltr;
+  --draw: 0;
+  --e: 0;
+  --labels: 0;
+}
+.an__ln {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--draw));
+}
+.an__ln--hidden {
+  stroke-dasharray: 0.012 0.012;
+  stroke-dashoffset: 0;
+  opacity: calc(var(--draw) * 0.5);
+}
+.an__fill {
+  stroke: none;
+  opacity: calc(var(--draw) * 0.55);
+}
+.an__fill--top {
+  opacity: calc(var(--draw) * 0.75);
+}
+.an__piece {
+  transform: translateY(calc(var(--e) * var(--lift)));
+}
+.an__label {
+  opacity: var(--labels);
+}
+.an__label circle {
+  fill: var(--ink);
+}
+.an__label path {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 0.8;
+  vector-effect: non-scaling-stroke;
+}
+.an__name {
+  font-size: 15px;
+  font-weight: 600;
+  fill: var(--ink);
+}
+.an__spec {
+  font-size: 11.5px;
+  fill: var(--ink-2);
+}
+:root[lang='en'] .an__name {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 19px;
+}
+.plate__caption {
+  position: absolute;
+  inset-inline: 1.4rem;
+  bottom: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.82);
+  opacity: var(--photo, 1);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+}
+.plate__caption .kicker {
+  color: inherit;
+}
+
+/* the page */
+.journey__page {
+  position: relative;
+  order: 1;
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--header-h) + 1.5rem) clamp(1.5rem, 4vw, 4.5rem) 1.4rem;
+  min-width: 0;
+}
+.masthead {
+  font-family: var(--serif);
+  font-size: clamp(4.5rem, 1rem + 9vw, 11rem);
+  line-height: 0.82;
+  letter-spacing: -0.02em;
+  direction: ltr;
+  text-align: start;
+  color: var(--ink);
+  transition: opacity 0.6s var(--ease), transform 0.9s var(--ease);
+}
+/* the masthead belongs to the cover; it steps back once the story starts */
+.journey:not(.at-cover) .masthead {
+  opacity: 0.08;
+}
+.journey__chapters {
+  position: relative;
+  flex: 1;
 }
 .chapter {
   position: absolute;
-  inset-block: 0;
-  inset-inline-start: 0;
-  width: min(33rem, 42vw);
+  inset: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: flex-start;
-  gap: 1.4rem;
-  padding-top: var(--header-h);
-  padding-bottom: 5rem;
+  gap: 1.3rem;
+  padding-bottom: 2.4rem;
+  max-width: 34rem;
+  pointer-events: none;
 }
 .chapter > * {
   opacity: 0;
@@ -65,24 +180,19 @@
 .chapter.is-active > :nth-child(4) { transition-delay: 0.21s; }
 
 .chapter__title {
-  font-size: clamp(2.1rem, 1rem + 3vw, 4.1rem);
-}
-.chapter--cover {
-  width: min(40rem, 46vw);
-  justify-content: flex-end;
-  padding-bottom: 7rem;
+  font-size: clamp(2rem, 1rem + 2.6vw, 3.8rem);
 }
 .chapter--cover .chapter__title {
-  font-size: clamp(2.8rem, 0.8rem + 5.6vw, 6.8rem);
+  font-size: clamp(2.4rem, 1rem + 3.6vw, 4.8rem);
 }
 .chapter__title em {
   display: block;
 }
 .chapter__text {
   font-weight: 300;
-  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.16rem);
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.14rem);
   color: var(--ink-2);
-  max-width: 28em;
+  max-width: 30em;
 }
 .chapter__actions {
   display: flex;
@@ -132,83 +242,11 @@
   vertical-align: 0.9em;
 }
 
-/* the anatomy chapter keeps its copy small and low, the labels need the room */
-.chapter--anatomy {
-  justify-content: flex-end;
-  padding-bottom: 7.5rem;
-  width: min(24rem, 30vw);
-}
-.chapter--anatomy .chapter__title {
-  font-size: clamp(1.8rem, 1rem + 2vw, 3rem);
-}
-
-/* hairline labels pinned to the exploded glass; they point away from the copy */
-.tag {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 3;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.5s;
-  will-change: transform;
-}
-.tag.is-on {
-  opacity: 1;
-}
-.tag i {
-  position: absolute;
-  left: -3px;
-  top: -3px;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--ink);
-}
-/* logical properties put the label on the far side of the dot in both directions */
-.tag span {
-  position: absolute;
-  inset-inline-start: 0;
-  top: -0.85rem;
-  padding-inline-start: 72px;
-  white-space: nowrap;
-  font-size: 0.82rem;
-  color: var(--ink-2);
-}
-/* the leader line grows out of the dot */
-.tag span::after {
-  content: '';
-  position: absolute;
-  inset-inline-start: 6px;
-  top: 50%;
-  width: 60px;
-  height: 1px;
-  background: var(--ink);
-  transform-origin: 0 50%;
-  transform: scaleX(0);
-  transition: transform 0.7s var(--ease) 0.15s;
-}
-:root[dir='rtl'] .tag span::after {
-  transform-origin: 100% 50%;
-}
-.tag.is-on span::after {
-  transform: scaleX(1);
-}
-.tag b {
-  font-weight: 600;
-  color: var(--ink);
-  margin-inline-end: 0.5em;
-}
-
 /* chapter folio: numbered stops on a hairline */
 .journey__progress {
-  position: absolute;
-  inset-inline: 0;
-  bottom: 1.4rem;
-  width: min(100% - 2 * var(--gutter), var(--max));
-  margin-inline: auto;
+  position: relative;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   border-top: 1px solid var(--rule);
 }
 .journey__bar {
@@ -227,126 +265,71 @@
 .journey__progress button {
   display: flex;
   align-items: baseline;
-  gap: 0.6rem;
+  gap: 0.5rem;
   padding: 0.7rem 0 0;
   border: 0;
   background: none;
   cursor: pointer;
   color: var(--muted);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   text-align: start;
   transition: color 0.4s;
 }
 .journey__progress button b {
   font-family: var(--serif);
   font-weight: 400;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
 }
 :root[lang='fa'] .journey__progress button b {
   font-family: 'Estedad', sans-serif;
   font-weight: 300;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 .journey__progress button.is-on,
 .journey__progress button:hover {
   color: var(--ink);
 }
-.scroll-hint {
-  position: absolute;
-  left: 50%;
-  bottom: 4.6rem;
-  translate: -50% 0;
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted);
-  transition: opacity 0.5s;
-}
-.scroll-hint::after {
-  content: '';
-  display: block;
-  width: 1px;
-  height: 2.4rem;
-  margin: 0.6rem auto 0;
-  background: linear-gradient(var(--ink), transparent);
-  animation: drip 2s var(--ease) infinite;
-  transform-origin: top;
-}
-.scroll-hint.is-hidden {
-  opacity: 0;
-}
-@keyframes drip {
-  0% { transform: scaleY(0); }
-  50% { transform: scaleY(1); transform-origin: top; }
-  51% { transform-origin: bottom; }
-  100% { transform: scaleY(0); transform-origin: bottom; }
-}
-
-/* without WebGL: the chapters simply stack */
-.no-webgl .journey {
-  height: auto;
-}
-.no-webgl .journey__sticky {
-  position: static;
-  height: auto;
-}
-.no-webgl .journey__canvas,
-.no-webgl .tag,
-.no-webgl .journey__progress,
-.no-webgl .scroll-hint {
-  display: none;
-}
-.no-webgl .journey__chapters {
-  position: static;
-  pointer-events: auto;
-}
-.no-webgl .chapter {
-  position: static;
-  width: auto;
-  max-width: 40rem;
-  padding-block: 5rem;
-  border-bottom: 1px solid var(--rule);
-}
-.no-webgl .chapter > * {
-  opacity: 1;
-  transform: none;
-}
-
+/* phones: the plate on top, the page below */
 @media (max-width: 760px) {
-  .chapter,
-  .chapter--cover,
-  .chapter--anatomy {
-    width: 100%;
-    justify-content: flex-end;
-    padding-bottom: 5.5rem;
-    gap: 0.9rem;
+  .journey {
+    height: 700vh;
   }
-  .chapter--cover .chapter__title {
-    font-size: clamp(2.4rem, 11vw, 3.6rem);
+  .journey__sticky {
+    grid-template-columns: 1fr;
+    grid-template-rows: 52svh 1fr;
   }
-  .chapter__title {
-    font-size: clamp(1.7rem, 7.5vw, 2.4rem);
+  .plate {
+    order: 0;
   }
-  .chapter__text {
-    font-size: 0.95rem;
-    line-height: 1.7;
+  .journey__page {
+    padding: 1rem var(--gutter) 0.8rem;
   }
-  .specs dd {
-    font-size: 2rem;
-  }
-  .specs--4 {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  .journey__progress button span,
-  .scroll-hint {
+  .masthead {
     display: none;
   }
-  .tag span {
-    font-size: 0.72rem;
-    padding-inline-start: 40px;
+  .chapter {
+    gap: 0.75rem;
+    padding-bottom: 1rem;
   }
-  .tag span::after {
-    width: 30px;
+  .chapter__title,
+  .chapter--cover .chapter__title {
+    font-size: clamp(1.6rem, 7vw, 2.2rem);
+  }
+  .chapter__text {
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+  .specs dd {
+    font-size: 1.8rem;
+  }
+  .journey__progress button span {
+    display: none;
+  }
+  .an__name {
+    font-size: 17px;
+  }
+  .an__spec {
+    display: none;
   }
 }
 

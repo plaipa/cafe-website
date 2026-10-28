@@ -1,8 +1,8 @@
 # STRATA
 
-وب‌سایتِ دوزبانهٔ یک کافهٔ **مفهومی** در تبریز. ایدهٔ مرکزی: «هر فنجان چند لایه است.» صفحهٔ اول یک لاته را جلوی چشمِ بازدیدکننده لایه‌به‌لایه می‌سازد (لیوان، اسپرسو، کرما، شیر، فوم) و بعد آن را مثل یک نقشهٔ فنی از هم باز می‌کند. منو هم به همین زبان است: هر نوشیدنی برشی از همان لیوان.
+وب‌سایتِ دوزبانهٔ یک کافهٔ **مفهومی** در تبریز. ایدهٔ مرکزی: «هر فنجان چند لایه است.» صفحهٔ اول ویدیوی واقعیِ ریختنِ یک آیس‌لاته را با اسکرول جلو و عقب می‌برد و بعد آن را به یک نقشهٔ فنیِ خطی تبدیل می‌کند که لایه‌هایش (لیوان، اسپرسو، یخ، شیر، فوم) از هم جدا می‌شوند. منو هم به همین زبان است: هر نوشیدنی برشی از همان لیوان.
 
-A bilingual (Persian default, English) site for **STRATA**, a concept café in Tabriz, art-directed like a magazine. The idea in one line: *every cup is layered.* The home page builds a latte layer by layer in 3D, then pulls it apart into an exploded, annotated view. The menu speaks the same language: each drink is a cross-section of the house glass.
+A bilingual (Persian default, English) site for **STRATA**, a concept café in Tabriz, art-directed like a magazine. The idea in one line: *every cup is layered.* The home page scrubs a real video of an iced latte being poured as you scroll, then dissolves it into a technical line drawing of the same glass that comes apart into its layers, annotated. The menu speaks the same language: each drink is a cross-section of the house glass.
 
 > The name, address, phone and opening hours are placeholders for a concept; see *Replace before launch*.
 
@@ -19,27 +19,35 @@ Every push to `main` builds the site and publishes it to GitHub Pages (`.github/
 
 ## Pages
 
-| Persian (default) | English | 3D |
+| Persian (default) | English | Visual |
 |---|---|---|
-| `index.html` | `en/index.html` | scroll story: empty glass → espresso → crema → milk → foam → exploded anatomy, each chapter on its own backdrop colour |
-| `menu.html` | `en/menu.html` | a glass that rebuilds itself as whichever drink is on screen; exploded view on demand |
-| `about.html` | `en/about.html` | the manifesto, beside the exploded latte as "Fig. 1" |
+| `index.html` | `en/index.html` | a magazine spread: the pour (video frames scrubbed by scroll) beside the chapter copy; then the exploded line drawing |
+| `menu.html` | `en/menu.html` | a large cross-section that redraws itself as whichever drink is on screen; exploded view on demand |
+| `about.html` | `en/about.html` | the manifesto, beside a photograph of the finished drink as "Fig. 1" |
 | `contact.html` | `en/contact.html` | — (address, hours, drawn map, booking form) |
 
 ## Structure
 
-- `partials/menu-data.js`: **one source** for the glass dimensions, the ingredients (with their colours) and every drink's layers in millilitres. The build draws the SVG cross-sections from it (`partials/render.js`) and the browser builds the 3D glass from the same numbers.
+- `partials/menu-data.js`: **one source** for the glass dimensions, the ingredients (with their colours) and every drink's layers in millilitres. `partials/render.js` draws the cross-sections from it (at build time, and again in the browser when the menu figure changes drink) and the exploded drawing on the home page.
 - `partials/strings.js`, `header.html`, `footer.html`, `head.html`, `loader.html`: shared markup and UI strings per language, filled by the small plugin in `vite.config.js`.
-- `src/js/scene/`
-  - `studio.js`: a seamless colour backdrop, soft key and rim light, a room environment for reflections, and shadows on the backdrop. There are no downloaded assets.
-  - `glass.js`: the tumbler (real glass transmission), the coaster, and the stack of liquid layers that follow the inside of the glass. Covers latte art, crema and ice, plus the exploded view.
-  - `story.js`: the scroll timeline (camera, pours, explosion, backdrop colours, the wordmark the glass refracts) and the inner-page vignettes.
+- `public/pour/`: the pour as WebP frames (`d/` 768×864 for desktop, `m/` 480×540 for phones; 136 frames at 8 fps) and a still. `src/js/home.js` draws the frame for the current scroll position onto a canvas, with a slow push-in per chapter; frames stream in coarse to fine so scrubbing works before all have arrived.
 - `src/js/loader.js`: the intro loader, a glass whose layers fill with real loading progress (once per session). `src/js/parallax.js`: scroll and pointer parallax.
 - Fonts are self-hosted: **Estedad** (Persian), **Manrope** (Latin text) and **Instrument Serif** (display and wordmark).
 
 ## Language
 
 Persian is the default. Every page has an always-visible **English** / **فارسی** switch in the header and footer. Visitors whose browser isn't Persian get a small English prompt; an explicit choice is remembered.
+
+## Credits
+
+The pour video is *A barista preparing coffee with milk and ice* from [Mixkit](https://mixkit.co/free-stock-video/a-barista-preparing-coffee-with-milk-and-ice-796/), free under the Mixkit Stock Video Free License. It is cropped and cut into frames here. For the real café, replace it with your own footage: a static camera, a glass against a plain background, and around 15 seconds of pouring is enough. Regenerate the frames with:
+
+```bash
+ffmpeg -i pour.mp4 -vf "fps=8,crop=960:1080:480:0,scale=768:864" -c:v libwebp -quality 68 public/pour/d/%03d.webp
+ffmpeg -i pour.mp4 -vf "fps=8,crop=960:1080:480:0,scale=480:540" -c:v libwebp -quality 64 public/pour/m/%03d.webp
+```
+
+and set `data-count` on the home page's canvas to the number of frames.
 
 ## Replace before launch
 
@@ -54,4 +62,3 @@ These are **placeholders**, not real data:
 ## Dev aids
 
 - `?p=0.84` on the home page pins the story at a given scroll progress (useful for screenshots).
-- `?q=low` forces the light renderer (lower resolution, softer shadows, half-resolution glass), which phones and low-core machines get automatically.

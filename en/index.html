@@ -3,110 +3,95 @@
   <head>
     <!--@include head-->
     <title>STRATA Tabriz | Every cup is layered</title>
-    <meta name="description" content="STRATA, a concept café in Tabriz. We take a latte apart layer by layer: glass, espresso, crema, milk and foam." />
+    <meta name="description" content="STRATA, a concept café in Tabriz. We take an iced latte apart layer by layer: glass, espresso, ice, milk and foam." />
   </head>
   <body class="page-home">
     <!--@include loader-->
     <!--@include header-->
 
     <main id="main">
-      <section class="journey" id="journey" aria-label="The anatomy of a latte">
+      <section class="journey" id="journey" aria-label="The anatomy of an iced latte">
         <div class="journey__sticky">
-          <canvas class="journey__canvas" id="scene" aria-hidden="true"></canvas>
+          <figure class="plate" aria-hidden="true">
+            <canvas class="plate__photo" id="pour" data-frames="../pour/" data-count="136"></canvas>
+            <div class="plate__drawing"><!--@render anatomy--></div>
+            <figcaption class="plate__caption"><span class="kicker">Fig. 1</span><span class="plate__credit">Video: Mixkit</span></figcaption>
+          </figure>
 
-          <div class="journey__chapters">
-            <article class="chapter chapter--cover is-active" data-start="0" data-end="0.1">
-              <p class="kicker">STRATA <span aria-hidden="true">—</span> Issue 01 <span aria-hidden="true">—</span> Tabriz</p>
-              <h1 class="chapter__title display">Every cup <em>is layered.</em></h1>
-              <p class="chapter__text">We open a latte in front of you, so you can see what goes on inside: from an empty glass to the heart that settles on the foam.</p>
-              <div class="chapter__actions">
-                <a class="btn btn--solid" href="#after" data-scroll-journey="0.14">
-                  Open the cup
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" /></svg>
-                </a>
-                <a class="link" href="./menu.html">The anatomical menu</a>
-              </div>
-            </article>
+          <div class="journey__page">
+            <p class="masthead" aria-hidden="true">STRATA</p>
+            <div class="journey__chapters">
+              <article class="chapter chapter--cover is-active" data-start="0" data-end="0.08">
+                <p class="kicker">STRATA <span aria-hidden="true">—</span> Issue 01 <span aria-hidden="true">—</span> Tabriz</p>
+                <h1 class="chapter__title display">Every cup <em>is layered.</em></h1>
+                <p class="chapter__text">Look closely at a STRATA iced latte: espresso, ice, cold milk, and the foam that settles last of all.</p>
+                <div class="chapter__actions">
+                  <a class="btn btn--solid" href="#after" data-scroll-journey="0.2">
+                    Open the cup
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" /></svg>
+                  </a>
+                  <a class="link" href="./menu.html">The anatomical menu</a>
+                </div>
+              </article>
 
-            <article class="chapter" data-start="0.11" data-end="0.21">
-              <p class="kicker"><b>01</b> The glass</p>
-              <h2 class="chapter__title display">It all starts with something clear</h2>
-              <p class="chapter__text">Our glass is plain, with a heavy base and a wall only 2.2 mm thin: thin enough that no layer can hide behind it.</p>
-              <dl class="specs">
-                <div><dt>Holds</dt><dd class="num">240<small>ml</small></dd></div>
-                <div><dt>Height</dt><dd class="num">118<small>mm</small></dd></div>
-              </dl>
-            </article>
-
-            <article class="chapter" data-start="0.23" data-end="0.41">
-              <p class="kicker"><b>02</b> Espresso &amp; crema</p>
-              <h2 class="chapter__title display">Twenty-eight seconds. <em>The base of everything.</em></h2>
-              <p class="chapter__text">18 g of freshly ground coffee, water at 93° pushed through at 9 bar. In 28 seconds, 36 g of espresso drips out, and a golden crema settles on top.</p>
-              <dl class="specs specs--4">
+              <article class="chapter" data-start="0.1" data-end="0.3">
+                <p class="kicker"><b>01</b> Espresso</p>
+                <h2 class="chapter__title display">It all starts with 36 grams</h2>
+                <p class="chapter__text">18 g of freshly ground coffee, water at 93° pushed through at 9 bar. In 28 seconds, 36 g of espresso drips over the ice: a dark base for every layer that follows.</p>
+                <dl class="specs specs--4">
                 <div><dt>Coffee</dt><dd class="num">18<small>g</small></dd></div>
                 <div><dt>Espresso</dt><dd class="num">36<small>g</small></dd></div>
                 <div><dt>Water</dt><dd class="num">93<small>°C</small></dd></div>
-                <div><dt>Time</dt><dd class="num"><span data-timer data-from="0.22" data-to="0.34" data-max="28">0</span><small>s</small></dd></div>
+                <div><dt>Time</dt><dd class="num"><span data-timer data-from="0.1" data-to="0.28" data-max="28">0</span><small>s</small></dd></div>
               </dl>
-            </article>
+              </article>
 
-            <article class="chapter" data-start="0.43" data-end="0.58">
-              <p class="kicker"><b>03</b> Milk</p>
-              <h2 class="chapter__title display">Milk, to 65° <em>and not a degree more.</em></h2>
-              <p class="chapter__text">Above 65°C the sugars in milk scorch and its sweetness is gone. We steam with a thermometer, not by guesswork, and pour slowly over the espresso so the layers stay apart.</p>
-              <dl class="specs">
-                <div><dt>Temperature</dt><dd class="num">65<small>°C</small></dd></div>
-                <div><dt>Volume</dt><dd class="num">140<small>ml</small></dd></div>
+              <article class="chapter" data-start="0.32" data-end="0.53">
+                <p class="kicker"><b>02</b> Ice &amp; milk</p>
+                <h2 class="chapter__title display">Cold milk, slowly, <em>over the ice.</em></h2>
+                <p class="chapter__text">We pour the milk over the ice so it slows down and rests on the espresso instead of mixing into it. That is how the layers stay apart, and why you can see where they meet.</p>
+                <dl class="specs">
+                <div><dt>Temperature</dt><dd class="num">4<small>°C</small></dd></div>
+                <div><dt>Volume</dt><dd class="num">120<small>ml</small></dd></div>
               </dl>
-            </article>
+              </article>
 
-            <article class="chapter" data-start="0.59" data-end="0.71">
-              <p class="kicker"><b>04</b> Foam</p>
-              <h2 class="chapter__title display">Eight millimetres, <em>and a heart.</em></h2>
-              <p class="chapter__text">Microfoam means bubbles too small to see. That thin layer is what makes the drawing on top possible.</p>
-              <dl class="specs">
-                <div><dt>Depth</dt><dd class="num">8<small>mm</small></dd></div>
-                <div><dt>Volume</dt><dd class="num">22<small>ml</small></dd></div>
+              <article class="chapter" data-start="0.55" data-end="0.7">
+                <p class="kicker"><b>03</b> Foam</p>
+                <h2 class="chapter__title display">And last, <em>the lightest layer.</em></h2>
+                <p class="chapter__text">Cold foam settles on top of everything. Every sip passes through it: first the softness of milk, then the bite of espresso.</p>
+                <dl class="specs">
+                <div><dt>Volume</dt><dd class="num">15<small>ml</small></dd></div>
+                <div><dt>Depth</dt><dd class="num">1<small>cm</small></dd></div>
               </dl>
-            </article>
+              </article>
 
-            <article class="chapter chapter--anatomy" data-start="0.74" data-end="0.91">
-              <p class="kicker"><b>05</b> Anatomy</p>
-              <h2 class="chapter__title display">Now see them <em>apart.</em></h2>
-              <p class="chapter__text">Five parts, each with its own number and reason. That is all a latte is; no more, no less.</p>
-            </article>
+              <article class="chapter" data-start="0.73" data-end="0.91">
+                <p class="kicker"><b>04</b> Anatomy</p>
+                <h2 class="chapter__title display">Now see them <em>apart.</em></h2>
+                <p class="chapter__text">Five parts, each with its own number and reason. That is all an iced latte is; no more, no less.</p>
+              </article>
 
-            <article class="chapter chapter--finale" data-start="0.93" data-end="1.01">
-              <p class="kicker"><b>06</b> Your cup</p>
-              <h2 class="chapter__title display">It looks simple. <em>It isn’t.</em></h2>
-              <p class="chapter__text">Every drink on the STRATA menu is made this way: layer by layer, with numbers and with patience.</p>
-              <div class="chapter__actions">
-                <a class="btn btn--solid" href="./menu.html">
-                  The anatomical menu
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-                </a>
-                <a class="link" href="./about.html">Our manifesto</a>
-              </div>
-            </article>
-          </div>
+              <article class="chapter chapter--finale" data-start="0.93" data-end="1.01">
+                <p class="kicker"><b>05</b> Your cup</p>
+                <h2 class="chapter__title display">It looks simple. <em>It isn’t.</em></h2>
+                <p class="chapter__text">Every drink on the STRATA menu is made this way: layer by layer, with numbers and with patience.</p>
+                <div class="chapter__actions">
+                  <a class="btn btn--solid" href="./menu.html">The anatomical menu <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg></a>
+                  <a class="link" href="./about.html">Our manifesto</a>
+                </div>
+              </article>
+            </div>
 
-          <!-- labels pinned to the exploded glass -->
-          <div class="tag" data-layer="3" data-start="0.79" data-end="0.9"><i></i><span><b>Foam</b> 8 mm</span></div>
-          <div class="tag" data-layer="2" data-start="0.795" data-end="0.9"><i></i><span><b>Milk</b> 140 ml</span></div>
-          <div class="tag" data-layer="1" data-start="0.8" data-end="0.9"><i></i><span><b>Crema</b> 2 mm</span></div>
-          <div class="tag" data-layer="0" data-start="0.805" data-end="0.9"><i></i><span><b>Espresso</b> 36 g</span></div>
-          <div class="tag" data-layer="-1" data-start="0.81" data-end="0.9"><i></i><span><b>Glass</b> 240 ml</span></div>
-
-          <nav class="journey__progress" aria-label="Chapters">
-            <div class="journey__bar" aria-hidden="true"></div>
+            <nav class="journey__progress" aria-label="Chapters">
+              <div class="journey__bar" aria-hidden="true"></div>
             <button type="button" data-goto="0"><b class="num">00</b><span>Cover</span></button>
-            <button type="button" data-goto="0.15"><b class="num">01</b><span>Glass</span></button>
-            <button type="button" data-goto="0.33"><b class="num">02</b><span>Espresso</span></button>
-            <button type="button" data-goto="0.51"><b class="num">03</b><span>Milk</span></button>
-            <button type="button" data-goto="0.66"><b class="num">04</b><span>Foam</span></button>
-            <button type="button" data-goto="0.84"><b class="num">05</b><span>Anatomy</span></button>
-          </nav>
-          <p class="scroll-hint" aria-hidden="true">Scroll</p>
+            <button type="button" data-goto="0.2"><b class="num">01</b><span>Espresso</span></button>
+            <button type="button" data-goto="0.42"><b class="num">02</b><span>Milk</span></button>
+            <button type="button" data-goto="0.62"><b class="num">03</b><span>Foam</span></button>
+            <button type="button" data-goto="0.82"><b class="num">04</b><span>Anatomy</span></button>
+            </nav>
+          </div>
         </div>
       </section>
 
